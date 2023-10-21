@@ -17,7 +17,7 @@
 														<i class="icon-search"></i>
 												</span>
 										</div>
-										<input type="text" class="form-control" id="navbar-search-input" placeholder="Search now"
+										<input type="text" class="form-control" id="navbar-search-input" placeholder="Cari kelas"
 												aria-label="search" aria-describedby="search" />
 								</div>
 						</li>
