@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Dosen\DataKelasController;
+use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Student\KelasSaya;
 use App\Http\Controllers\Student\StudentDashboard;
+use App\Http\Controllers\Student\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +24,21 @@ Route::get('/', function () {
 });
 
 
+// route student area
 Route::prefix('student')->name('student.')->group(function () {
-    Route::resource('dashboard', StudentDashboard::class);
+    Route::resource('dashboard', StudentDashboardController::class);
     Route::resource('kelasSaya', KelasSaya::class);
+});
+
+
+// route dosen area
+Route::prefix('dosen')->name('dosen.')->group(function () {
+    Route::resource('dashboard', DosenDashboardController::class);
+    Route::resource('data-kelas', DataKelasController::class);
+});
+
+
+// route admin area
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('dashboard', AdminDashboardController::class);
 });
