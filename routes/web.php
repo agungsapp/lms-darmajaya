@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Dosen\Auth\DosenLoginController;
 use App\Http\Controllers\Dosen\DataKelasController;
 use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Student\KelasSaya;
@@ -35,6 +36,7 @@ Route::prefix('student')->name('student.')->group(function () {
 Route::prefix('dosen')->name('dosen.')->group(function () {
     Route::resource('dashboard', DosenDashboardController::class);
     Route::resource('data-kelas', DataKelasController::class);
+    Route::resource('login', DosenLoginController::class);
 });
 
 
@@ -42,3 +44,6 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('dashboard', AdminDashboardController::class);
 });
+
+
+// belom solved login dosen . 
