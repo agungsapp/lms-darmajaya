@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\AuthGroupUserModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DosenDashboardController extends Controller
 {
@@ -12,7 +15,9 @@ class DosenDashboardController extends Controller
      */
     public function index()
     {
-        //
+
+        // dd(Auth::user());
+
         return view('dosen.dashboard.index');
     }
 

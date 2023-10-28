@@ -20,21 +20,24 @@ class UserSeeder extends Seeder
                 'last_name' => 'Dosen 1',
                 'username' => 'dosen1',
                 'email' => 'dosen1@gmail.com',
-                'password' => bcrypt('dosen123')
+                'password' => bcrypt('dosen123'),
+                'role' => 2,
             ],
             [
                 'first_name' => 'Sample',
                 'last_name' => 'Dosen 2',
                 'username' => 'dosen2',
                 'email' => 'dosen2@gmail.com',
-                'password' => bcrypt('dosen123')
+                'password' => bcrypt('dosen123'),
+                'role' => 2,
             ],
             [
                 'first_name' => 'Sample',
                 'last_name' => 'Dosen 3',
                 'username' => 'dosen3',
                 'email' => 'dosen3@gmail.com',
-                'password' => bcrypt('dosen123')
+                'password' => bcrypt('dosen123'),
+                'role' => 2,
             ],
         ];
 

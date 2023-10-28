@@ -4,7 +4,11 @@
 				<div class="col-md-12 grid-margin">
 						<div class="row">
 								<div class="col-12 col-xl-8 mb-xl-0 mb-4">
-										<h3 class="font-weight-bold">Welcome to koridor !</h3>
+										<h3 class="font-weight-bold">Welcome to Dashboard {{ Auth::user()->first_name }} !</h3>
+										{{-- <form action="{{ route('dosen.logout') }}" method="POST">
+												@csrf
+												<button type="submit" class="btn btn-danger">Logout</button>
+										</form> --}}
 										<h6 class="font-weight-normal mb-0">
 												Semoga harimu indah.
 										</h6>
@@ -34,8 +38,24 @@
 								</div>
 						</div>
 				</div>
+
 				{{-- section info --}}
 				<div class="col-md-6 grid-margin transparent">
+						<div class="row mb-3 px-3">
+								<div class="card w-100">
+										<div class="card-header bg-primary text-white">
+												Info Login
+										</div>
+										<div class="card-body">
+												<h5 class="card-title">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h5>
+												<p class="card-text">{{ Auth::user()->email }}</p>
+												<a href="#" class="btn btn-primary">
+														<i class="mdi mdi-exit-to-app"></i>
+														<span>Logout</span>
+												</a>
+										</div>
+								</div>
+						</div>
 						<div class="row">
 								<div class="col-md-6 stretch-card transparent mb-4">
 										<div class="card card-tale">

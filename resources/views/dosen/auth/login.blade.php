@@ -31,15 +31,27 @@
 														</div>
 														<h4>Hello! lecturer</h4>
 														<h6 class="font-weight-light">Login untuk melanjutkan</h6>
-														<form class="pt-3" action="{{ route('dosen.login.store') }}" method="POST">
+
+
+														@if ($errors->any())
+																<div class="aler alert-danger">
+																		<ul>
+																				@foreach ($errors->all() as $item)
+																						<li>{{ $item }}</li>
+																				@endforeach
+																		</ul>
+																</div>
+														@endif
+
+														<form class="pt-3" action="{{ route('dosen.authenticate') }}" method="POST">
 																@csrf
 																<div class="form-group">
-																		<input type="text" class="form-control form-control-lg" id="exampleInputEmail1"
-																				placeholder="Username">
+																		<input type="text" class="form-control form-control-lg" value="{{ old('username') }}"
+																				id="username" name="username" placeholder="Username">
 																</div>
 																<div class="form-group">
-																		<input type="password" class="form-control form-control-lg" id="exampleInputPassword1"
-																				placeholder="Password">
+																		<input type="password" class="form-control form-control-lg" id="password"
+																				value="{{ old('password') }}" name="password" placeholder="Password">
 																</div>
 																<div class="mt-3">
 																		<button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
