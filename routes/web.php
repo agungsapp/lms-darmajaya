@@ -55,3 +55,8 @@ Route::prefix('dosen')->name('dosen.')->group(function () {
 });
 
 // belom solved login dosen . 
+
+
+
+
+// terakhir crud data kelas 

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('kode_mk');
             $table->string('name');
             $table->unsignedBigInteger('id_users');
-            $table->string('kelas');
-            $table->string('hari');
-            $table->time('jam');
+            $table->string('kelas')->nullable();
+            $table->string('hari')->nullable();
+            $table->time('jam')->nullable();
             $table->timestamps();
 
             // foreign

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hari;
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 
 class DataKelasController extends Controller
@@ -13,7 +15,16 @@ class DataKelasController extends Controller
     public function index()
     {
         //
-        return view('dosen.data_kelas.index');
+
+        $data = [
+            'kodemk' => Matakuliah::generateKodeMk(),
+            'hari' => Hari::all(),
+            'mks' => MataKuliah::all()
+        ];
+
+        // dd($data['kodemk']);
+
+        return view('dosen.data_kelas.index', $data);
     }
 
     /**
@@ -30,6 +41,16 @@ class DataKelasController extends Controller
     public function store(Request $request)
     {
         //
+
+        $data = [
+            'kode_mk' => $request->kode,
+            'name' => $request->name,
+            'id_users' => $request->id_dosen,
+        ];
+
+        MataKuliah::create($data);
+
+        return redirect()->back();
     }
 
     /**

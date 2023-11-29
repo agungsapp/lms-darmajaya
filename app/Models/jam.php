@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Hari extends Model
+class jam extends Model
 {
     use HasFactory;
-    protected $table = 'hari';
-    protected $guarded = ['id'];
+
+    protected $table = 'jam';
 }
