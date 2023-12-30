@@ -50,10 +50,16 @@ class DosenDataKelasController extends Controller
             'id_users' => $request->id_dosen,
         ];
 
-        MataKuliah::create($data);
+        try {
+            MataKuliah::create($data);
 
-        alert()->success('Berhasil !', 'berhasil menambahkan data kelas !');
-        return redirect()->back();
+            alert()->success('Berhasil !', 'berhasil menambahkan data kelas !');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            alert()->error('Error', 'gagal menambahkan data kelas !');
+            return redirect()->back();
+        }
     }
 
     /**
