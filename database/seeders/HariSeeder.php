@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Admin;
+namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,13 +13,16 @@ class HariSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        DB::table('hari')->insert([
+        $data = [
             ['name' => 'senin'],
             ['name' => 'selasa'],
             ['name' => 'rabu'],
             ['name' => 'kamis'],
             ['name' => 'jumat'],
-        ]);
+        ];
+
+        foreach ($data as $hariData) {
+            \App\Models\Hari::create($hariData);
+        }
     }
 }

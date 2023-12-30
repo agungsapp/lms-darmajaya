@@ -49,10 +49,16 @@
 										<div class="card-body">
 												<h5 class="card-title">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h5>
 												<p class="card-text">{{ Auth::user()->email }}</p>
-												<a href="{{ route('dosen.logout') }}" class="btn btn-primary">
-														<i class="mdi mdi-exit-to-app"></i>
-														<span>Logout</span>
-												</a>
+
+												<form method="POST" action="{{ route('logout') }}">
+														@csrf
+														<a class="btn btn-primary" href="{{ route('logout') }}"
+																onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+																<i class="mdi mdi-exit-to-app"></i>
+																<span>Logout</span>
+														</a>
+												</form>
 										</div>
 								</div>
 						</div>

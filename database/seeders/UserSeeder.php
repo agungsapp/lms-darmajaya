@@ -16,28 +16,28 @@ class UserSeeder extends Seeder
         //
         $data = [
             [
-                'first_name' => 'Sample',
-                'last_name' => 'Dosen 1',
+                'first_name' => 'administrator',
+                'last_name' => 'lms',
+                'username' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('darmajaya123'),
+                'role' => 1,
+            ],
+            [
+                'first_name' => 'dosen',
+                'last_name' => 'pertama',
                 'username' => 'dosen1',
                 'email' => 'dosen1@gmail.com',
-                'password' => bcrypt('dosen123'),
+                'password' => bcrypt('darmajaya123'),
                 'role' => 2,
             ],
             [
-                'first_name' => 'Sample',
-                'last_name' => 'Dosen 2',
-                'username' => 'dosen2',
-                'email' => 'dosen2@gmail.com',
-                'password' => bcrypt('dosen123'),
-                'role' => 2,
-            ],
-            [
-                'first_name' => 'Sample',
-                'last_name' => 'Dosen 3',
-                'username' => 'dosen3',
-                'email' => 'dosen3@gmail.com',
-                'password' => bcrypt('dosen123'),
-                'role' => 2,
+                'first_name' => 'siswa',
+                'last_name' => 'pertama',
+                'username' => 'siswa1',
+                'email' => 'siswa1@gmail.com',
+                'password' => bcrypt('darmajaya123'),
+                'role' => 3,
             ],
         ];
 

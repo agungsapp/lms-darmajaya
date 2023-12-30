@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call(HariSeeder::class);
+        // $this->call(HariSeeder::class);
         $this->call(UserSeeder::class);
         // $this->call(GroupSeeder::class);
         // $this->call(AuthGroupUserSeeder::class);

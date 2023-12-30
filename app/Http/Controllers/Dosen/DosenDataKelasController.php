@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Hari;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
+// use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class DataKelasController extends Controller
+class DosenDataKelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,12 +46,13 @@ class DataKelasController extends Controller
 
         $data = [
             'kode_mk' => $request->kode,
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'id_users' => $request->id_dosen,
         ];
 
         MataKuliah::create($data);
 
+        alert()->success('Berhasil !', 'berhasil menambahkan data kelas !');
         return redirect()->back();
     }
 

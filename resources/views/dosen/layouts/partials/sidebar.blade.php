@@ -1,13 +1,13 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 		<ul class="nav">
-				<li class="nav-item {{ \Route::is('dosen.dashboard.index') ? 'active' : '' }}">
+				<li class="nav-item {{ \Route::is('dosen.dashboard.*') ? 'active' : '' }}">
 						<a class="nav-link" href="{{ route('dosen.dashboard.index') }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Dashboard</span>
 						</a>
 				</li>
-				<li class="nav-item {{ route('dosen.data-kelas.index') }}">
-						<a class="nav-link" href="{{ route('dosen.data-kelas.index') }}">
+				<li class="nav-item {{ \Route::is('dosen.datakelas.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('dosen.datakelas.index') }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Data Kelas</span>
 						</a>

@@ -15,7 +15,7 @@
 		<div class="row mb-3">
 				<div class="card w-100">
 						<div class="card-body p-4">
-								<form action="{{ route('dosen.data-kelas.store') }}" method="POST" class="row">
+								<form action="{{ route('dosen.datakelas.store') }}" method="POST" class="row">
 										@csrf
 
 

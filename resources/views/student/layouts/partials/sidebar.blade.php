@@ -2,14 +2,14 @@
 		<ul class="nav">
 				{{-- {{ dd(Route::is('student.dashboard.index')) }} --}}
 				{{-- {{ dd(Route::currentRouteName()) }} --}}
-				<li class="nav-item {{ \Route::is('student.dashboard.index') ? 'active' : '' }}">
+				<li class="nav-item {{ \Route::is('student') ? 'active' : '' }}">
 						<a class="nav-link" href="{{ route('student.dashboard.index') }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Dashboard</span>
 						</a>
 				</li>
-				<li class="nav-item {{ \Route::is('student.kelasSaya.index') ? 'active' : '' }}">
-						<a class="nav-link" href="{{ route('student.kelasSaya.index') }}">
+				<li class="nav-item {{ \Route::is('student') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ '' }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Kelas Saya</span>
 						</a>

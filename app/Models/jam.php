@@ -10,4 +10,5 @@ class jam extends Model
     use HasFactory;
 
     protected $table = 'jam';
+    protected $guarded = ['id'];
 }
