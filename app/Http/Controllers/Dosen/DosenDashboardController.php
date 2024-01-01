@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\AuthGroupUserModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class StudentDashboard extends Controller
+class DosenDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        return view('student.dashboard.index');
+
+        // dd(Auth::user());
+
+        return view('dosen.dashboard.index');
     }
 
     /**

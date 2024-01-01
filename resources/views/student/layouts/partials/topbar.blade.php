@@ -17,7 +17,7 @@
 														<i class="icon-search"></i>
 												</span>
 										</div>
-										<input type="text" class="form-control" id="navbar-search-input" placeholder="Search now"
+										<input type="text" class="form-control" id="navbar-search-input" placeholder="Cari kelas"
 												aria-label="search" aria-describedby="search" />
 								</div>
 						</li>
@@ -88,10 +88,15 @@
 												<i class="ti-settings text-primary"></i>
 												Settings
 										</a>
-										<a class="dropdown-item">
-												<i class="ti-power-off text-primary"></i>
-												Logout
-										</a>
+										<form method="POST" action="{{ route('logout') }}">
+												@csrf
+												<a class="dropdown-item" href="{{ route('logout') }}"
+														onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+														<i class="ti-power-off text-primary"></i>
+														Logout
+												</a>
+										</form>
 								</div>
 						</li>
 				</ul>

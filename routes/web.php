@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\Student\KelasSaya;
-use App\Http\Controllers\Student\StudentDashboard;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Dosen\DosenDashboardController;
+use App\Http\Controllers\Dosen\DosenDataKelasController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Student\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,11 +19,39 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('student.dashboard.index');
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
-Route::prefix('student')->name('student.')->group(function () {
-    Route::resource('dashboard', StudentDashboard::class);
-    Route::resource('kelasSaya', KelasSaya::class);
+// prefix admin
+Route::prefix('admin')->name('admin.')->middleware('role:1')->group(function () {
+    Route::resource('/dashboard', AdminDashboardController::class);
 });
+
+// profix dosen
+Route::prefix('dosen')->name('dosen.')->middleware('role:2')->group(function () {
+    Route::resource('/dashboard', DosenDashboardController::class);
+    Route::resource('/datakelas', DosenDataKelasController::class);
+});
+
+
+// prefix admin
+Route::prefix('student')->name('student.')->middleware('role:3')->group(function () {
+    Route::resource('/dashboard', StudentDashboardController::class);
+});
+
+require __DIR__ . '/auth.php';
+
+
+
+// terakhir sampai show , delete dan modal 
