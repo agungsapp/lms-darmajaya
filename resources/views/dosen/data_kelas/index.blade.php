@@ -37,36 +37,7 @@
 												</div>
 										</div>
 										<div class="col-6">
-												{{-- <div class="form-group">
-														<label for="kelas">Hari :</label>
-														<select class="custom-select" name="kelas">
-																<option selected value="">-- pilih kelas --</option>
-																<option value="1">P1</option>
-																<option value="2">P2</option>
-																<option value="3">P3</option>
-																<option value="4">P4</option>
-																<option value="5">P5</option>
-														</select>
-												</div> --}}
-												{{-- <div class="form-group">
-														<label for="hari">Hari :</label>
-														<select class="custom-select" name="hari">
-																<option selected value="">-- pilih hari --</option>
-																@foreach ($hari as $h)
-																		<option value="{{ $h->id }}">{{ $h->name }}</option>
-																@endforeach
-														</select>
-												</div> --}}
 
-												{{-- <div class="form-group">
-														<label for="jam">Jam :</label>
-														<select class="custom-select" name="jam">
-																<option selected value="">-- pilih jam --</option>
-																<option value="1">One</option>
-																<option value="2">Two</option>
-																<option value="3">Three</option>
-														</select>
-												</div> --}}
 										</div>
 										<button type="submit" class="btn btn-primary">Simpan</button>
 
@@ -74,9 +45,11 @@
 						</div>
 				</div>
 		</div>
+
 		<div class="row">
 				<div class="card w-100">
 						<div class="card-body table-responsive">
+								<h3>Data Modul Anda</h3>
 								<table class="table-hover table">
 										<thead>
 												<tr>
@@ -84,6 +57,7 @@
 														<th>Kode</th>
 														<th>Nama</th>
 														<th>Dibuat</th>
+														<th>Aksi</th>
 												</tr>
 										</thead>
 										<tbody>
@@ -93,7 +67,102 @@
 																<td>{{ $mk->kode_mk }}</td>
 																<td>{{ $mk->name }}</td>
 																<td>{{ $mk->created_at }}</td>
+																<td>
+																		<!-- Button trigger modal edit -->
+																		<button type="button" class="btn btn-warning d-inline-block" data-toggle="modal"
+																				data-target="#modalEdit{{ $mk->id }}">
+																				<i class="ti-pencil"></i>
+																		</button>
 
+																		<!-- Modal edit -->
+																		<div class="modal fade" id="modalEdit{{ $mk->id }}" tabindex="-1" role="dialog"
+																				aria-labelledby="modalEditLabel" aria-hidden="true">
+																				<div class="modal-dialog" role="document">
+																						<div class="modal-content">
+																								<div class="modal-header">
+																										<h5 class="modal-title" id="modalEditLabel">Edit data modul {{ $mk->name }}</h5>
+																										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																												<span aria-hidden="true">&times;</span>
+																										</button>
+																								</div>
+																								<form action="{{ route('dosen.datakelas.update', $mk->id) }}" method="post">
+																										@csrf
+																										@method('PUT')
+
+																										<div class="modal-body">
+																												<div class="col-12">
+																														<div class="form-group">
+																																<label for="kode">Kode : </label>
+																																<input type="text" class="form-control" id="kode" name="kode"
+																																		value="{{ $mk->kode_mk }}" readonly>
+																														</div>
+																														<div class="form-group">
+																																<label for="dosen">Dosen pengajar : </label>
+																																<input type="hidden" name="id_dosen" value="{{ Auth::user()->id }}">
+																																<input type="text" class="form-control" id="dosen" name="dosen"
+																																		value="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}" readonly>
+																														</div>
+																														<div class="form-group">
+																																<label for="name">Nama Mata Kuliah : </label>
+																																<input type="text" class="form-control" id="name" name="name"
+																																		value="{{ $mk->name }}" required>
+																														</div>
+																												</div>
+																										</div>
+																										<div class="modal-footer">
+																												<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+																												<button type="submit" class="btn btn-primary">Simpan</button>
+																										</div>
+																								</form>
+
+																						</div>
+																				</div>
+																		</div>
+
+																		{{-- delete --}}
+																		{{-- <form action="{{ route('dosen.datakelas.destroy', $mk->id) }}" class="d-inline-block"
+																				id="deleteForm">
+																				<button type="submit" class="btn fw-bold btn-danger" data-confirm-delete="true"><i
+																								class="ti-trash"></i></button>
+																		</form> --}}
+
+																		{{-- modal delete --}}
+																		<!-- Button trigger modal -->
+																		<button type="button" class="btn btn-danger" data-toggle="modal"
+																				data-target="#modalDelete{{ $mk->id }}">
+																				<i class="ti-trash"></i>
+																		</button>
+
+																		<!-- Modal -->
+																		<div class="modal fade" id="modalDelete{{ $mk->id }}" tabindex="-1" role="dialog"
+																				aria-labelledby="modalDeleteLabel" aria-hidden="true">
+																				<div class="modal-dialog" role="document">
+																						<div class="modal-content">
+																								<div class="modal-header">
+																										<h5 class="modal-title" id="modalDeleteLabel">Hapus Data !</h5>
+																										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																												<span aria-hidden="true">&times;</span>
+																										</button>
+																								</div>
+																								<form action="{{ route('dosen.datakelas.destroy', $mk->id) }}" method="post">
+																										@csrf
+																										@method('DELETE')
+																										<div class="modal-body">
+																												<div class="col-12">
+																														<p>Yakin ingin menghapus data kelas <strong>{{ $mk->name }}</strong></p>
+																												</div>
+																										</div>
+																										<div class="modal-footer">
+																												<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+																												<button type="submit" class="btn btn-danger">Ya, Hapus !</button>
+																										</div>
+																								</form>
+																						</div>
+																				</div>
+																		</div>
+
+
+																</td>
 														</tr>
 												@endforeach
 										</tbody>

@@ -14,6 +14,14 @@ class DosenDataKelasController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    protected $mkModel;
+
+    public function __construct()
+    {
+        $this->mkModel = new MataKuliah();
+    }
+
     public function index()
     {
         //
@@ -25,6 +33,11 @@ class DosenDataKelasController extends Controller
         ];
 
         // dd($data['kodemk']);
+
+
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
 
         return view('dosen.data_kelas.index', $data);
     }
@@ -84,6 +97,24 @@ class DosenDataKelasController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        try {
+
+            $mk = $this->mkModel->findOrFail($id);
+
+
+            $mk->update(
+                [
+                    'name' => $request->name,
+                ],
+            );
+
+            alert()->success('Berhasil !', 'update data kelas berhasil !');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            alert()->error('Error', 'terjadi kesalahan pada server !');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -92,5 +123,6 @@ class DosenDataKelasController extends Controller
     public function destroy(string $id)
     {
         //
+        return "oke delete";
     }
 }

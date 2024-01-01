@@ -51,3 +51,7 @@ Route::prefix('student')->name('student.')->middleware('role:3')->group(function
 });
 
 require __DIR__ . '/auth.php';
+
+
+
+// terakhir sampai show , delete dan modal 
