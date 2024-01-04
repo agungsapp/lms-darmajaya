@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\EvaluasiModel;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DosenEvaluasiController extends Controller
 {
-    protected $mkModel;
+    protected $mkModel, $evalModel;
     public function __construct()
     {
         $this->mkModel = new MataKuliah();
+        $this->evalModel = new EvaluasiModel();
     }
 
     /**
@@ -43,6 +45,26 @@ class DosenEvaluasiController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+
+        $mks = $this->mkModel->where('kode_mk', $request->kode_mk)->first();
+
+        try {
+            $this->evalModel->create([
+                'name' => $request->name,
+                'kode_mk' => $request->kode_mk,
+                'deskripsi' => $request->deskripsi,
+                'durasi' => $request->durasi,
+            ]);
+
+
+            alert()->success('Berhasil !', "Evaluasi baru pada mata kuliah $mks->name berhasil di tambahkan");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            // throw $th;
+            alert()->error('Gagal !', "Terjadi kesalahan pada server !");
+            return redirect()->back();
+        };
     }
 
     /**

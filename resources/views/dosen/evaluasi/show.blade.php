@@ -21,16 +21,16 @@
 						<div class="card">
 								<div class="card-body">
 										<h3>Tambah evaluasi baru</h3>
-										<form action="{{ route('dosen.modul.store') }}" method="POST" class="mt-3">
+										<form action="{{ route('dosen.evaluasi.store') }}" method="POST" class="mt-3">
 												@csrf
 
 												{{-- hidden area start --}}
-												<input type="hidden" value="{{ $mk->kode_mk }}">
+												<input type="hidden" name="kode_mk" value="{{ $mk->kode_mk }}">
 												{{-- hidden area end --}}
 
 												<div class="form-group">
-														<label for="nama">Judul</label>
-														<input type="text" class="form-control" name="nama" id="nama"
+														<label for="name">Judul</label>
+														<input type="text" class="form-control" name="name" id="name"
 																placeholder="Masukan judul evaluasi ...">
 												</div>
 
