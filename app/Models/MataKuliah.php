@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class MataKuliah extends Model
@@ -29,4 +30,13 @@ class MataKuliah extends Model
 
         return $newKodeMk;
     }
+
+    public function banyakKelas()
+    {
+        return $this->hasMany(ModulModel::class, 'kode_mk', 'kode_mk');
+    }
+    // public function banyakSoal()
+    // {
+    //     return $this->hasMany(BankSoalModel::class, 'kode_mk', 'kode_mk');
+    // }
 }
