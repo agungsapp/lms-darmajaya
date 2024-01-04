@@ -41,7 +41,7 @@
 
 												<div class="form-group">
 														<label for="deskripsi">Deskripsi</label>
-														<textarea class="form-control" name="deskripsi" id="deskripsi" rows="6"></textarea>
+														<textarea class="form-control deskripsi" name="deskripsi" id="deskripsi" rows="6"></textarea>
 												</div>
 
 
@@ -51,14 +51,76 @@
 						</div>
 				</div>
 		</div>
+
+
+
+		<div class="row mt-5">
+				<div class="col-12">
+						<div class="card">
+								<div class="card-body">
+										<p class="title-table">Evaluasi tersedia</p>
+										<div class="table-responsive">
+												<table class="table">
+														<thead>
+																<tr>
+																		<th scope="col">#</th>
+																		<th scope="col">Nama</th>
+																		<th scope="col">Durasi</th>
+																		<th scope="col">Aksi</th>
+																</tr>
+														</thead>
+														<tbody>
+																@if (empty($eval))
+																		<tr>
+																				<td colspan="4">-- Data belum ada --</td>
+																		</tr>
+																@else
+																		@foreach ($eval as $e)
+																				<tr>
+																						<th scope="row">{{ $loop->iteration }}</th>
+																						<td>{{ $e->name }}</td>
+																						<td>{{ $e->durasi }} Menit</td>
+																						<td>
+
+																								<a href="{{ route('dosen.evaluasi.edit', $e->id) }}" class="btn btn-warning">Edit</a>
+																								<a href="{{ route('dosen.evaluasi.edit', $e->id) }}" class="btn btn-primary">Lihat Soal</a>
+
+																						</td>
+																				</tr>
+																		@endforeach
+																@endif
+														</tbody>
+												</table>
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
 @endsection
 
 @push('script')
 		<script>
-				$('#deskripsi').summernote({
-						placeholder: 'Masukan deskripsi evaluasi di sini ...',
-						tabsize: 2,
-						height: 100
-				});
+				$(document).ready(function() {
+						$('.deskripsi').summernote({
+								placeholder: 'Masukan deskripsi evaluasi di sini ...',
+								tabsize: 2,
+								height: 200,
+								toolbar: [
+										// Menambahkan grup toolbar yang diinginkan
+										['style', ['bold', 'italic', 'underline', 'clear']],
+										['font', ['strikethrough', 'superscript', 'subscript']],
+										['fontsize', ['fontsize']],
+										['color', ['color']],
+										['para', ['ul', 'ol', 'paragraph']],
+										['height', ['height']],
+										// Menonaktifkan fitur insertImage dan insertVideo
+										// ['insert', ['link', 'picture', 'video']], // Baris ini biasanya mengaktifkan fitur gambar dan video
+								]
+						});
+
+
+
+
+				})
 		</script>
 @endpush

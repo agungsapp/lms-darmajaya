@@ -75,9 +75,11 @@ class DosenEvaluasiController extends Controller
         //
 
         $mk = $this->mkModel->where('kode_mk', $kode_mk)->first();
-        // dd($mk);
+        $eval = $this->evalModel->where('kode_mk', $kode_mk)->get();
+        // dd($eval);
         $data = [
             'mk' => $mk,
+            'eval' => $eval,
         ];
         return view('dosen.evaluasi.show', $data);
     }
@@ -88,6 +90,12 @@ class DosenEvaluasiController extends Controller
     public function edit(string $id)
     {
         //
+
+        $eval = $this->evalModel->findOrFail($id);
+
+        // dd($eval);
+
+        return view('dosen.evaluasi.edit', ['eval' => $eval]);
     }
 
     /**
@@ -96,6 +104,26 @@ class DosenEvaluasiController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        // dd($request->all());
+
+        try {
+            $evaluasi = $this->evalModel->find($id);
+            $evaluasi->update(
+                [
+                    'name' => $request->name,
+                    'durasi' => $request->durasi,
+                    'deskripsi' => $request->deskripsi
+                ]
+            );
+
+            alert()->success('Berhasil !', 'update data evaluasi berhasil !');
+            return redirect()->to(route('dosen.evaluasi.show', $request->kode_mk));
+        } catch (\Throwable $th) {
+            //throw $th;
+            alert()->error('Gagal !', "Terjadi kesalahan pada server !");
+            return redirect()->back();
+        }
     }
 
     /**
@@ -105,4 +133,7 @@ class DosenEvaluasiController extends Controller
     {
         //
     }
+
+
+    // =================================== MODUL AREA ===================================
 }
