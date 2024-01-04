@@ -12,10 +12,16 @@
 								<span class="menu-title">Data Kelas</span>
 						</a>
 				</li>
-				<li class="nav-item {{ '' }}">
-						<a class="nav-link" href="{{ 'dd' }}">
+				<li class="nav-item {{ \Route::is('dosen.modul.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('dosen.modul.index') }}">
 								<i class="icon-grid menu-icon"></i>
-								<span class="menu-title">Data Dosen</span>
+								<span class="menu-title">Data Modul</span>
+						</a>
+				</li>
+				<li class="nav-item {{ \Route::is('dosen.evaluasi.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('dosen.evaluasi.index') }}">
+								<i class="icon-grid menu-icon"></i>
+								<span class="menu-title">Data Evaluasi</span>
 						</a>
 				</li>
 				<li class="nav-item {{ '' }}">
@@ -24,12 +30,7 @@
 								<span class="menu-title">Data Mahasiswa</span>
 						</a>
 				</li>
-				<li class="nav-item">
-						<a class="nav-link" href="#">
-								<i class="icon-grid menu-icon"></i>
-								<span class="menu-title">Data Nilai Siswa</span>
-						</a>
-				</li>
+
 				<li class="nav-item">
 						<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
 								<i class="icon-layout menu-icon"></i>

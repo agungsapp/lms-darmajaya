@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_users');
             $table->string('kelas')->nullable();
             $table->string('hari')->nullable();
+            $table->string('path_file')->default('default.jpg');
             $table->time('jam')->nullable();
             $table->timestamps();
 

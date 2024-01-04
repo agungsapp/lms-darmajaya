@@ -32,12 +32,25 @@
 																value="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}" readonly>
 												</div>
 												<div class="form-group">
-														<label for="name">Nama Mata Kuliah : </label>
+														<label for="name">Nama Mata Kuliah<span class="text-danger">*</span> : </label>
 														<input type="text" class="form-control" id="name" name="name" required>
 												</div>
 										</div>
 										<div class="col-6">
+												<div class="form-group mb-3">
+														<label for="">Gambar thumbnail kelas <span class="text-danger">(Opsional)</span></label>
+														<div class="alert alert-info" role="alert">
+																rekomendasi ukuran gambar 1080 x 1980
+														</div>
+														<div class="custom-file">
+																<input type="file" class="custom-file-input" id="inputGroupFile02">
+																<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+														</div>
+												</div>
+												<div class="form-group mb-3">
+														<img id="imagePreview" class="w-50 d-block mx-auto" src="" alt="" srcset="">
 
+												</div>
 										</div>
 										<button type="submit" class="btn btn-primary">Simpan</button>
 
@@ -179,7 +192,13 @@
 
 						let kode = $('#kode').val();
 
-
+						$('#inputGroupFile02').change(function(event) {
+								var output = $('#imagePreview');
+								output.attr('src', URL.createObjectURL(event.target.files[0]));
+								output.onload = function() {
+										URL.revokeObjectURL(output.src) // Menghapus URL setelah load
+								}
+						});
 				})
 		</script>
 @endpush
