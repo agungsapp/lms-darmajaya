@@ -7,6 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<title>Dosen | LMS</title>
 
+		<!-- plugins:js -->
+		<script src="{{ asset('vendors') }}/js/vendor.bundle.base.js"></script>
+
 		<script src="{{ asset('jquery/jquery.js') }}" crossorigin="anonymous"></script>
 		{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -48,6 +51,9 @@
 						min-height: 300px;
 				}
 				*/
+				.title-table {
+						font-size: 1.9em;
+				}
 		</style>
 
 </head>
@@ -107,8 +113,7 @@
 		</div>
 		<!-- container-scroller -->
 
-		<!-- plugins:js -->
-		{{-- <script src="{{ asset('vendors') }}/js/vendor.bundle.base.js"></script> --}}
+
 		<!-- endinject -->
 		<!-- Plugin js for this page -->
 		<script src="{{ asset('vendors') }}/chart.js/Chart.min.js"></script>
