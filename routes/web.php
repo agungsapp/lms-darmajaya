@@ -60,6 +60,8 @@ Route::prefix('dosen')->name('dosen.')->middleware(['auth', 'role:2'])->group(fu
     Route::resource('/datakelas', DosenDataKelasController::class);
     Route::resource('/modul', DosenDataModulController::class);
     Route::resource('/evaluasi', DosenEvaluasiController::class);
+    Route::get('/evaluasi/modul-create/{id}', [DosenEvaluasiController::class, 'createModul'])->name('evaluasi.create-modul');
+    Route::post('/evaluasi/modul-create', [DosenEvaluasiController::class, 'storeModul'])->name('evaluasi.store-modul');
     Route::resource('/soal', DosenBankSoalController::class);
     Route::get('/modul/preview/{kode_mk}', [DosenDataModulController::class, 'preview'])->name('modul.preview');
     Route::post('/modul/upload', [DosenDataModulController::class, 'upload'])->name('modul.upload');

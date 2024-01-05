@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankSoalModel;
 use App\Models\EvaluasiModel;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
@@ -10,11 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class DosenEvaluasiController extends Controller
 {
-    protected $mkModel, $evalModel;
+    protected $mkModel, $evalModel, $soalModel;
     public function __construct()
     {
         $this->mkModel = new MataKuliah();
         $this->evalModel = new EvaluasiModel();
+        $this->soalModel = new BankSoalModel();
     }
 
     /**
@@ -136,4 +138,43 @@ class DosenEvaluasiController extends Controller
 
 
     // =================================== MODUL AREA ===================================
+
+
+
+    public function createModul($id)
+    {
+        $data = [
+            'id' => $id,
+            'soals' => $this->soalModel->where('id_evaluasi', $id)->get(),
+        ];
+        return view('dosen.evaluasi.add_soal', $data);
+    }
+
+    public function storeModul(Request $request)
+    {
+        $cek = $request->opsi_c === $request->kunci;
+        // dd($cek);
+        // dd($request->all());
+
+        try {
+            $this->soalModel->create([
+                'id_evaluasi' => $request->id_evaluasi,
+                'soal' => $request->soal,
+                'opsi_a' => $request->opsi_a,
+                'opsi_b' => $request->opsi_b,
+                'opsi_c' => $request->opsi_c,
+                'opsi_d' => $request->opsi_d,
+                'opsi_e' => $request->opsi_e,
+                'kunci' => $request->kunci,
+            ]);
+
+
+            alert()->success('Berhasil !', 'berhasil menambahkan soal baru !');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+            alert()->error('Gagal !', 'terjadi kesalahan pada server !');
+            return redirect()->back();
+        }
+    }
 }

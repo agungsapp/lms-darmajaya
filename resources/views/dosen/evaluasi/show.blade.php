@@ -83,7 +83,8 @@
 																						<td>
 
 																								<a href="{{ route('dosen.evaluasi.edit', $e->id) }}" class="btn btn-warning">Edit</a>
-																								<a href="{{ route('dosen.evaluasi.edit', $e->id) }}" class="btn btn-primary">Lihat Soal</a>
+																								<a href="{{ route('dosen.evaluasi.create-modul', $e->id) }}" class="btn btn-primary">Lihat
+																										Soal</a>
 
 																						</td>
 																				</tr>

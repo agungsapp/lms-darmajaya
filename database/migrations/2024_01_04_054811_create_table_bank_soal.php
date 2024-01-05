@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('opsi_c');
             $table->string('opsi_d');
             $table->string('opsi_e');
-            $table->char('kunci', 10);
+            $table->string('kunci');
             $table->timestamps();
         });
     }
