@@ -24,7 +24,10 @@
 								<span class="menu-title">Data Evaluasi</span>
 						</a>
 				</li>
-				<li class="nav-item {{ '' }}">
+
+
+
+				{{-- <li class="nav-item {{ '' }}">
 						<a class="nav-link" href="{{ 'dd' }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Data Mahasiswa</span>
@@ -50,6 +53,8 @@
 										</li>
 								</ul>
 						</div>
-				</li>
+				</li> --}}
+
+
 		</ul>
 </nav>

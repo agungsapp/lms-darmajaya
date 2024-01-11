@@ -122,6 +122,45 @@
 												</div>
 
 										</div>
+										<div class="card-footer">
+												<a href="{{ route('dosen.evaluasi.edit-modul', $s->id) }}" class="btn btn-warning">Edit</a>
+
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-danger" data-toggle="modal"
+														data-target="#deleteModal{{ $s->id }}">
+														Delete
+												</button>
+
+												<!-- Modal -->
+												<div class="modal fade" id="deleteModal{{ $s->id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
+														aria-hidden="true">
+														<div class="modal-dialog">
+																<div class="modal-content">
+																		<div class="modal-header">
+																				<h5 class="modal-title" id="deleteModalLabel">Hapus Data ?</h5>
+																				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																						<span aria-hidden="true">&times;</span>
+																				</button>
+																		</div>
+																		<form action="{{ route('dosen.evaluasi.delete-modul', $s->id) }}" method="post">
+																				@csrf
+																				@method('DELETE')
+																				<div class="modal-body">
+																						yakin akan menghaous data soal ? tindakan ini tidak dapat dibatalkan setelah
+																						anda menekan
+																						<strong>Yakin.</strong>
+																				</div>
+																				<div class="modal-footer">
+																						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+																						<button type="submit" class="btn btn-danger">Yakin</button>
+																				</div>
+																		</form>
+
+																</div>
+														</div>
+												</div>
+
+										</div>
 								</div>
 						</div>
 				@endforeach
@@ -145,6 +184,7 @@
 								if (opsiD) $('#kunci').append($('<option>').val(opsiD).text(opsiD));
 								if (opsiE) $('#kunci').append($('<option>').val(opsiE).text(opsiE));
 						});
+
 				});
 		</script>
 @endpush

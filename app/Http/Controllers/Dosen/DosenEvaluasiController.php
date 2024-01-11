@@ -177,4 +177,54 @@ class DosenEvaluasiController extends Controller
             return redirect()->back();
         }
     }
+
+    public function editModul(string $id)
+    {
+        $soal = $this->soalModel->find($id);
+
+        return view('dosen.evaluasi.edit_soal', ['s' => $soal]);
+    }
+
+    public function updateModul(Request $request, string $id)
+    {
+        // dd($request->all());
+
+        $soal = $this->soalModel->find($id);
+
+        $id_evaluasi = $soal->id_evaluasi;
+
+
+        try {
+            $soal->update(
+                [
+                    'soal' => $request->soal,
+                    'opsi_a' => $request->opsi_a,
+                    'opsi_b' => $request->opsi_b,
+                    'opsi_c' => $request->opsi_c,
+                    'opsi_d' => $request->opsi_d,
+                    'opsi_e' => $request->opsi_e,
+                    'kunci' => $request->kunci,
+                ]
+            );
+
+            alert()->success('Berhasil !', 'berhasil update data soal !');
+            return redirect()->to(route('dosen.evaluasi.create-modul', $id_evaluasi));
+        } catch (\Throwable $th) {
+            // throw $th;
+            alert()->error('Gagal !', 'terjadi kesalahan pada server !');
+            return redirect()->to(route('dosen.evaluasi.create-modul', $id_evaluasi));
+        }
+    }
+
+    public function destroyModul(Request $request, string $id)
+    {
+        $soal = $this->soalModel->find($id);
+        if ($soal) {
+            $soal->delete();
+            alert()->success('Berhasil!', 'berhasil hapus data soal!');
+        } else {
+            alert()->error('Gagal!', 'Data soal tidak ditemukan.');
+        }
+        return redirect()->back();
+    }
 }

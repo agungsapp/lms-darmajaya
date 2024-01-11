@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dd(Auth::user()->role == 2);
+    // dd(Auth::user()->role == 2);
     // if (Auth::login()) {
     //     if (Auth::user()->role = 1) {
     //         return redirect()->to(route('admin.dashboard.index'));
@@ -61,6 +61,9 @@ Route::prefix('dosen')->name('dosen.')->middleware(['auth', 'role:2'])->group(fu
     Route::resource('/modul', DosenDataModulController::class);
     Route::resource('/evaluasi', DosenEvaluasiController::class);
     Route::get('/evaluasi/modul-create/{id}', [DosenEvaluasiController::class, 'createModul'])->name('evaluasi.create-modul');
+    Route::get('/evaluasi/modul-soal/{id}/edit', [DosenEvaluasiController::class, 'editModul'])->name('evaluasi.edit-modul');
+    Route::post('/evaluasi/modul-soal/{id}/update', [DosenEvaluasiController::class, 'updateModul'])->name('evaluasi.update-modul');
+    Route::delete('/evaluasi/modul-soal/{id}/delete', [DosenEvaluasiController::class, 'destroyModul'])->name('evaluasi.delete-modul');
     Route::post('/evaluasi/modul-create', [DosenEvaluasiController::class, 'storeModul'])->name('evaluasi.store-modul');
     Route::resource('/soal', DosenBankSoalController::class);
     Route::get('/modul/preview/{kode_mk}', [DosenDataModulController::class, 'preview'])->name('modul.preview');
