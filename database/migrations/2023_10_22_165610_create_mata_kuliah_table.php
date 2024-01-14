@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mata_kuliah', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_mk');
+            $table->string('kode_mk')->index();
             $table->string('name');
             $table->unsignedBigInteger('id_users');
             $table->string('kelas')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
+    // perbaiki foreign key yang benar 12/01/2024
     /**
      * Reverse the migrations.
      */

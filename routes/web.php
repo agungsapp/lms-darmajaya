@@ -23,19 +23,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // dd(Auth::check());
     // dd(Auth::user()->role == 2);
-    // if (Auth::login()) {
-    //     if (Auth::user()->role = 1) {
-    //         return redirect()->to(route('admin.dashboard.index'));
-    //     } else if (Auth::user()->role == 2) {
-    //         return redirect()->to(route('dosen.dashboard.index'));
-    //     } else if (Auth::user()->role == 3) {
-    //         return redirect()->to(route('student.dashboard.index'));
-    //     } else {
-    //         return redirect()->to('/');
-    //     }
-    //     # code...
-    // }
+    if (Auth::check()) {
+        if (Auth::user()->role = 1) {
+            return redirect()->to(route('admin.dashboard.index'));
+        } else if (Auth::user()->role == 2) {
+            return redirect()->to(route('dosen.dashboard.index'));
+        } else if (Auth::user()->role == 3) {
+            return redirect()->to(route('student.dashboard.index'));
+        } else {
+            return redirect()->to('/');
+        }
+        # code...
+    }
 })->middleware('auth');
 
 Route::get('/dashboard', function () {
@@ -60,6 +61,10 @@ Route::prefix('dosen')->name('dosen.')->middleware(['auth', 'role:2'])->group(fu
     Route::resource('/datakelas', DosenDataKelasController::class);
     Route::resource('/modul', DosenDataModulController::class);
     Route::resource('/evaluasi', DosenEvaluasiController::class);
+    // ajax area evaluasi start
+    Route::get('/evaluasi/publish/{id}', [DosenEvaluasiController::class, 'publish'])->name('evaluasi.publish');
+    // Route::get('/evaluasi/draft/{id}', [DosenEvaluasiController::class, 'draft'])->name('evaluasi.draft');
+    // ajax area evaluasi end
     Route::get('/evaluasi/modul-create/{id}', [DosenEvaluasiController::class, 'createModul'])->name('evaluasi.create-modul');
     Route::get('/evaluasi/modul-soal/{id}/edit', [DosenEvaluasiController::class, 'editModul'])->name('evaluasi.edit-modul');
     Route::post('/evaluasi/modul-soal/{id}/update', [DosenEvaluasiController::class, 'updateModul'])->name('evaluasi.update-modul');
@@ -80,9 +85,12 @@ require __DIR__ . '/auth.php';
 
 
 
-// sampai sini , create modul , summer note, baca lengkap .!
-// pagi tadi sampai tambah delet
+// perbaiki foreign key yang benar 12/01/2024 DONE
+// rencana ada status di evaluasi DONE
 
 
-// update terbaru tadi salah harunsya evaluasi ke bank soal , 
-// sekarang perbaiki controller yang salah harusnya controllernya evaluasi bukan soal .
+// delete kelas lupa
+// buat relasi anttara mk dengan evaluasi dengan belongsto
+
+
+// mengerjakan students . 

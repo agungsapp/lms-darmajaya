@@ -18,6 +18,12 @@ return new class extends Migration
             $table->longText('materi');
             $table->string('path_file')->default('path');
             $table->timestamps();
+
+            // foreign key
+            $table->foreign('kode_mk')
+                ->references('kode_mk')
+                ->on('mata_kuliah')
+                ->onDelete('cascade');
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bank_soal', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_evaluasi');
+            $table->unsignedBigInteger('id_evaluasi');
             $table->string('soal');
             $table->string('opsi_a');
             $table->string('opsi_b');
@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('opsi_e');
             $table->string('kunci');
             $table->timestamps();
+
+            $table->foreign('id_evaluasi')
+                ->references('id')
+                ->on('evaluasi');
         });
     }
 

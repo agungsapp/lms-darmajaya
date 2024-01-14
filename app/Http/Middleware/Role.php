@@ -18,7 +18,16 @@ class Role
         $role = intval($role);
 
         if ($request->user()->role !== $role) {
-            return redirect('dashboard');
+
+            if ($request->user()->role == 1) {
+                return redirect()->to(route('admin.dashboard.index'));
+            } else if ($request->user()->role == 2) {
+                return redirect()->to(route('dosen.dashboard.index'));
+            } else if ($request->user()->role == 3) {
+                return redirect()->to(route('student.dashboard.index'));
+            } else {
+                return redirect('/');
+            }
         }
         return $next($request);
     }

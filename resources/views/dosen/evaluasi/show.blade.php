@@ -66,6 +66,8 @@
 																		<th scope="col">#</th>
 																		<th scope="col">Nama</th>
 																		<th scope="col">Durasi</th>
+																		<th scope="col">Status</th>
+																		<th scope="col">Publikasi</th>
 																		<th scope="col">Aksi</th>
 																</tr>
 														</thead>
@@ -76,15 +78,69 @@
 																		</tr>
 																@else
 																		@foreach ($eval as $e)
-																				<tr>
+																				<tr data-evaluasi-id="{{ $e->id }}">
 																						<th scope="row">{{ $loop->iteration }}</th>
 																						<td>{{ $e->name }}</td>
 																						<td>{{ $e->durasi }} Menit</td>
 																						<td>
 
-																								<a href="{{ route('dosen.evaluasi.edit', $e->id) }}" class="btn btn-warning">Edit</a>
+																								@if ($e->status == 0)
+																										<span class="badge badge-pill badge-secondary">Draft</span>
+																								@else
+																										<span class="badge badge-pill badge-info">Telah dipublikasi</span>
+																								@endif
+																						</td>
+																						<td>
+
+																								<label class="switch">
+																										<input {{ $e->status == 1 ? 'checked' : '' }} type="checkbox">
+																										<span class="slider round"></span>
+																								</label>
+
+
+																						</td>
+																						{{-- baru sampai sini tadi di kantor . ubah iini jadi button . untuk update satus --}}
+																						<td>
+
+																								<a href="{{ route('dosen.evaluasi.edit', $e->id) }}" class="btn btn-warning"><i
+																												class="ti-pencil"></i></a>
 																								<a href="{{ route('dosen.evaluasi.create-modul', $e->id) }}" class="btn btn-primary">Lihat
 																										Soal</a>
+
+																								{{-- modal delete --}}
+																								<!-- Button trigger modal -->
+																								<button type="button" class="btn btn-danger" data-toggle="modal"
+																										data-target="#delete{{ $e->id }}">
+																										<i class="ti-trash"></i>
+																								</button>
+
+																								<!-- Modal -->
+																								<div class="modal fade" id="delete{{ $e->id }}" tabindex="-1"
+																										aria-labelledby="deleteLabel" aria-hidden="true">
+																										<div class="modal-dialog">
+																												<div class="modal-content">
+																														<div class="modal-header">
+																																<h5 class="modal-title" id="deleteLabel">Hapus Data ?</h5>
+																																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																																		<span aria-hidden="true">&times;</span>
+																																</button>
+																														</div>
+																														<form action="{{ route('dosen.evaluasi.destroy', $e->id) }}" method="post">
+																																@csrf
+																																@method('DELETE')
+
+																																<div class="modal-body">
+																																		Yakin akan menghapus data evaluasi <strong>{{ $e->name }}</strong>
+																																</div>
+																																<div class="modal-footer">
+																																		<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+																																		<button type="submit" class="btn btn-danger">Yakin</button>
+																																</div>
+																														</form>
+
+																												</div>
+																										</div>
+																								</div>
 
 																						</td>
 																				</tr>
@@ -119,9 +175,99 @@
 								]
 						});
 
+						// logic untuk mengangani toggle 
+						$('.switch input[type="checkbox"]').click(function() {
+								console.log('event toggle...')
+								var evaluasiId = $(this).closest('tr').attr('data-evaluasi-id');
+								console.log(evaluasiId);
 
+								var isChecked = $(this).is(':checked');
+								var url = '/dosen/evaluasi/publish/';
+								var status = isChecked ? 1 : 0;
+								console.log(url, status);
+
+								$.ajax({
+										url: url + evaluasiId + "?status=" + status,
+										type: 'GET',
+										success: function(response) {
+												console.log(response);
+												window.location.reload();
+										},
+										error: function(error) {
+												console.error(error);
+										}
+								});
+						});
 
 
 				})
 		</script>
+@endpush
+
+
+@push('css')
+		<style>
+				/* Container switch */
+				.switch {
+						position: relative;
+						display: inline-block;
+						width: 60px;
+						height: 34px;
+				}
+
+				/* Hide default checkbox */
+				.switch input {
+						opacity: 0;
+						width: 0;
+						height: 0;
+				}
+
+				/* Style slider */
+				.slider {
+						position: absolute;
+						cursor: pointer;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						background-color: #ccc;
+						-webkit-transition: .4s;
+						transition: .4s;
+				}
+
+				.slider:before {
+						position: absolute;
+						content: "";
+						height: 26px;
+						width: 26px;
+						left: 4px;
+						bottom: 4px;
+						background-color: white;
+						-webkit-transition: .4s;
+						transition: .4s;
+				}
+
+				input:checked+.slider {
+						background-color: #2196F3;
+				}
+
+				input:focus+.slider {
+						box-shadow: 0 0 1px #2196F3;
+				}
+
+				input:checked+.slider:before {
+						-webkit-transform: translateX(26px);
+						-ms-transform: translateX(26px);
+						transform: translateX(26px);
+				}
+
+				/* Bentuk bulat slider */
+				.slider.round {
+						border-radius: 34px;
+				}
+
+				.slider.round:before {
+						border-radius: 50%;
+				}
+		</style>
 @endpush

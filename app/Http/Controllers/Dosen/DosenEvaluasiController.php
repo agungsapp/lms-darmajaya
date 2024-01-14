@@ -134,6 +134,14 @@ class DosenEvaluasiController extends Controller
     public function destroy(string $id)
     {
         //
+        $evaluasi = $this->evalModel->find($id);
+        if ($evaluasi) {
+            $evaluasi->delete();
+            alert()->success('Berhasil!', 'berhasil hapus data evaluasi!');
+        } else {
+            alert()->error('Gagal!', 'Data evaluasi tidak ditemukan.');
+        }
+        return redirect()->back();
     }
 
 
@@ -226,5 +234,25 @@ class DosenEvaluasiController extends Controller
             alert()->error('Gagal!', 'Data soal tidak ditemukan.');
         }
         return redirect()->back();
+    }
+
+
+    // micro service ajax :
+    public function publish(Request $request, $id)
+    {
+        try {
+            $evaluasi = $this->evalModel->find($id);
+            $evaluasi->status = $request->status;
+            $evaluasi->save();
+
+            if ($request->status == 1) {
+                return response()->json('berhasil mempublikasi evaluasi', 200);
+            }
+            return response()->json('berhasil menarik evaluasi ke draft', 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            alert()->error('Gagal !', "Terjadi kesalahan pada server !");
+            return redirect()->back();
+        }
     }
 }
