@@ -5,7 +5,11 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Dosen | LMS</title>
+
+		<!-- plugins:js -->
+		<script src="{{ asset('vendors') }}/js/vendor.bundle.base.js"></script>
 
 		<script src="{{ asset('jquery/jquery.js') }}" crossorigin="anonymous"></script>
 		{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
@@ -48,7 +52,12 @@
 						min-height: 300px;
 				}
 				*/
+				.title-table {
+						font-size: 1.9em;
+				}
 		</style>
+
+		@stack('css')
 
 </head>
 
@@ -107,8 +116,7 @@
 		</div>
 		<!-- container-scroller -->
 
-		<!-- plugins:js -->
-		{{-- <script src="{{ asset('vendors') }}/js/vendor.bundle.base.js"></script> --}}
+
 		<!-- endinject -->
 		<!-- Plugin js for this page -->
 		<script src="{{ asset('vendors') }}/chart.js/Chart.min.js"></script>

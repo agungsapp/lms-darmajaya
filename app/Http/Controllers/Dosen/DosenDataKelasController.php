@@ -123,6 +123,18 @@ class DosenDataKelasController extends Controller
     public function destroy(string $id)
     {
         //
-        return "oke delete";
+
+        try {
+            $mk = $this->mkModel->find($id);
+            // dd($mk);
+            $mk->delete();
+
+            alert()->success('Berhasil !', 'delete data kelas berhasil !');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            // throw $th;
+            alert()->error('Gagal !', 'Terjadi kesalahan saat menghapus data. !');
+            return redirect()->back();
+        }
     }
 }

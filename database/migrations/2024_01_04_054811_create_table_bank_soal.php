@@ -13,15 +13,19 @@ return new class extends Migration
     {
         Schema::create('bank_soal', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_evaluasi');
+            $table->unsignedBigInteger('id_evaluasi');
             $table->string('soal');
             $table->string('opsi_a');
             $table->string('opsi_b');
             $table->string('opsi_c');
             $table->string('opsi_d');
             $table->string('opsi_e');
-            $table->char('kunci', 10);
+            $table->string('kunci');
             $table->timestamps();
+
+            $table->foreign('id_evaluasi')
+                ->references('id')
+                ->on('evaluasi');
         });
     }
 

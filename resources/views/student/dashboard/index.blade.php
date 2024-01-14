@@ -4,17 +4,17 @@
 				<div class="col-md-12 grid-margin">
 						<div class="row">
 								<div class="col-12 col-xl-8 mb-xl-0 mb-4">
-										<h3 class="font-weight-bold">Welcome anjay</h3>
+										<h3 class="font-weight-bold">Welcome {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h3>
 										<h6 class="font-weight-normal mb-0">
-												All systems are running smoothly! You have
-												<span class="text-primary">3 unread alerts!</span>
+												Mulai Belajar
+												<span class="text-primary"></span>
 										</h6>
 								</div>
 						</div>
 				</div>
 		</div>
 		<div class="row">
-				<div class="col-md-6 grid-margin stretch-card">
+				<div class="col-12 col-lg-6 grid-margin stretch-card">
 						<div class="card tale-bg">
 								<div class="card-people mt-auto">
 										<img src="{{ asset('images') }}/dashboard/people.svg" alt="people">
@@ -34,7 +34,7 @@
 								</div>
 						</div>
 				</div>
-				<div class="col-md-6 grid-margin transparent">
+				<div class="col-lg-6 d-none d-lg-block grid-margin transparent">
 						<div class="row">
 								<div class="col-md-6 stretch-card transparent mb-4">
 										<div class="card card-tale">
@@ -76,5 +76,54 @@
 								</div>
 						</div>
 				</div>
+		</div>
+
+
+		{{-- search --}}
+		<div class="row">
+				<div class="col-12">
+						<div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="Cari modul ..." aria-label="Cari modul ..."
+										aria-describedby="button-addon2">
+								<div class="input-group-append">
+										<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
+								</div>
+						</div>
+				</div>
+		</div>
+
+
+		{{-- list modul --}}
+		<div class="row">
+				{{-- loop area --}}
+				@php
+						$cat = ['computer', 'book', 'database', 'board', 'coding', 'cloud'];
+				@endphp
+				@for ($i = 0; $i < 5; $i++)
+						<div class="col-6 col-lg-3">
+								{{-- <div class="card mt-3 overflow-hidden shadow">
+										<img src="https://source.unsplash.com/1000x600?{{ $cat[$i] }}" alt="" srcset="">
+										<div class="card-body bg-transparent" style="min-height: 100px;">
+												<h6 class="card-title">Pemrogramman dasar</h6>
+												<p class="m-0">Dosen :</p>
+												<p class="m-0">Sulyono S.kom</p>
+												<a href="#" class="btn btn-sm btn-block btn-primary">Go somewhere</a>
+										</div>
+								</div> --}}
+								<div class="card mt-3 shadow">
+										<img src="https://source.unsplash.com/1000x600?{{ $cat[$i] }}" class="rounded" alt=""
+												srcset="">
+										<div class="d-flex flex-column justify-content-between p-2" style="min-height: 130px;">
+												<div>
+														<h6 class="">Pemrogramman dasar</h6>
+														<p class="m-0">Dosen :</p>
+														<p class="m-0">Sulyono S.kom</p>
+												</div>
+												<a href="#" class="btn btn-sm btn-block btn-primary">Buka modul</a>
+										</div>
+								</div>
+						</div>
+				@endfor
+
 		</div>
 @endsection

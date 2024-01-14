@@ -1,9 +1,9 @@
 <nav class="navbar col-lg-12 col-12 fixed-top d-flex flex-row p-0">
 		<div class="navbar-brand-wrapper d-flex align-items-center justify-content-center text-center">
-				<a class="navbar-brand brand-logo mr-5" href="index.html">
+				<a class="navbar-brand brand-logo mr-5" href="{{ route('student.dashboard.index') }}">
 						<h4>Modul Darmajaya</h4>
 				</a>
-				<a class="navbar-brand brand-logo-mini" href="index.html">E-Modul</a>
+				<a class="navbar-brand brand-logo-mini" href="{{ route('student.dashboard.index') }}">MD</a>
 		</div>
 		<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 				<button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
