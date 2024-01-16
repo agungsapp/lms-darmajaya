@@ -5,7 +5,7 @@
 				<div class="col-md-12 grid-margin">
 						<div class="row">
 								<div class="col-12 col-xl-8 mb-xl-0 mb-4">
-										<h3 class="font-weight-bold">Daftar kelas yang anda miliki !</h3>
+										<h3 class="font-weight-bold">Daftar modul favorit anda !</h3>
 										<h6 class="font-weight-normal mb-0">
 												Mulai belajar ...
 										</h6>

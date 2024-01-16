@@ -8,6 +8,7 @@ use App\Http\Controllers\Dosen\DosenDataModulController;
 use App\Http\Controllers\Dosen\DosenEvaluasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentDashboardController;
+use App\Http\Controllers\Student\StudentKelasController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -76,9 +77,10 @@ Route::prefix('dosen')->name('dosen.')->middleware(['auth', 'role:2'])->group(fu
 });
 
 
-// prefix admin
+// prefix student
 Route::prefix('student')->name('student.')->middleware(['auth', 'role:3'])->group(function () {
     Route::resource('/dashboard', StudentDashboardController::class);
+    Route::resource('/kelas', StudentKelasController::class);
 });
 
 require __DIR__ . '/auth.php';

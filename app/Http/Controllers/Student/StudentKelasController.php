@@ -6,26 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 
-class StudentDashboardController extends Controller
+class StudentKelasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $keyword = $request->input('keyword');
+        //
 
-        if (!is_null($keyword)) {
-            $mks = MataKuliah::where('name', 'like', '%' . $keyword . '%')->get();
-        } else {
-            $mks = MataKuliah::all();
-        }
-
-        // dd($mks);
-
-        return view('student.dashboard.index', ['mks' => $mks]);
+        return view('student.kelas.index');
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -49,6 +40,15 @@ class StudentDashboardController extends Controller
     public function show(string $id)
     {
         //
+
+        $mks = MataKuliah::where('kode_mk', $id)->get()->first();
+        // dd($mks->modul->count());
+        // dd($mks);
+        $data = [
+            'mk' => $mks,
+        ];
+
+        return view('student.kelas.show', $data);
     }
 
     /**

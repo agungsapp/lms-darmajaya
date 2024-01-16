@@ -31,12 +31,27 @@ class MataKuliah extends Model
         return $newKodeMk;
     }
 
-    public function banyakKelas()
-    {
-        return $this->hasMany(ModulModel::class, 'kode_mk', 'kode_mk');
-    }
+    // public function banyakKelas()
+    // {
+    //     return $this->hasMany(ModulModel::class, 'kode_mk', 'kode_mk');
+    // }
     // public function banyakSoal()
     // {
     //     return $this->hasMany(BankSoalModel::class, 'kode_mk', 'kode_mk');
     // }
+
+    public function dosen()
+    {
+        return $this->belongsTo(User::class, 'id_users', 'id');
+    }
+
+    public function modul()
+    {
+        return $this->hasMany(ModulModel::class, 'kode_mk', 'kode_mk');
+    }
+
+    public function evaluasi()
+    {
+        return $this->hasMany(EvaluasiModel::class, 'kode_mk', 'kode_mk');
+    }
 }
