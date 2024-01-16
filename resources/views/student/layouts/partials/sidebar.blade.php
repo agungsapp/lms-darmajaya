@@ -14,6 +14,12 @@
 								<span class="menu-title">Modul Saya</span>
 						</a>
 				</li>
+				<li class="nav-item {{ \Route::is('student.evaluasi.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('student.evaluasi.index') }}">
+								<i class="icon-grid menu-icon"></i>
+								<span class="menu-title">Evaluasi</span>
+						</a>
+				</li>
 				<li class="nav-item">
 						<a class="nav-link" href="#">
 								<i class="icon-grid menu-icon"></i>

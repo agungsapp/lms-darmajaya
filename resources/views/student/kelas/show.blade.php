@@ -79,7 +79,8 @@
 																						</div>
 																						<div class="mt-3">
 																								<p>Durasi : {{ $e->durasi }}Menit</p>
-																								<a href="#" class="btn btn-primary">Lihat Evaluasi</a>
+																								<a href="{{ route('student.evaluasi.index.get', $e->id) }}" class="btn btn-primary">Lihat
+																										Evaluasi</a>
 																						</div>
 																				</div>
 																		</div>
