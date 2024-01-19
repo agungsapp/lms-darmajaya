@@ -5,60 +5,100 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\BankSoalModel;
 use App\Models\EvaluasiModel;
+use App\Models\EvaluasiStudentModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class StudentEvaluasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(string $id)
+    public function index(string $id = null)
     {
-        $evaluasi = EvaluasiModel::find($id);
-        $soal = $evaluasi->bankSoal;
 
-        // Mengonversi Collection ke Array
-        $soalArray = $soal->all();
+        $cekNilai = EvaluasiStudentModel::where('id_user', Auth::user()->id)->where('id_evaluasi', $id)->get();
+        // dd(empty($cekNilai));
+        if ($cekNilai->count()  == 0) {
 
-        // implementasi algorithm fisher yates mulai
-        for ($i = count($soalArray) - 1; $i > 0; $i--) {
-            $j = rand(0, $i);
-            $temp = $soalArray[$i];
-            $soalArray[$i] = $soalArray[$j];
-            $soalArray[$j] = $temp;
+            $evaluasi = EvaluasiModel::find($id);
+            $soal = $evaluasi->bankSoal;
+
+            // Mengonversi Collection ke Array
+            $soalArray = $soal->all();
+
+            // implementasi algorithm fisher yates mulai
+            for ($i = count($soalArray) - 1; $i > 0; $i--) {
+                $j = rand(0, $i);
+                $temp = $soalArray[$i];
+                $soalArray[$i] = $soalArray[$j];
+                $soalArray[$j] = $temp;
+            }
+            // end pengacakan
+
+            $data = [
+                'eval' => $evaluasi,
+                'soal' => $soalArray,
+            ];
+            // dd($data['soal']);
+
+            return view('student.evaluasi.index', $data);
+        } else {
+            alert()->error('Maaf !', 'Anda tidak dapat mengerjakan evaluasi lebih dari satu kali');
+            return redirect()->back();
         }
-        // end pengacakan
-
-        $data = [
-            'eval' => $evaluasi,
-            'soal' => $soalArray,
-        ];
-        // dd($data['soal']);
-
-        return view('student.evaluasi.index', $data);
     }
-
 
     public function koreksiJawaban(Request $request)
     {
+        $id_evaluasi = $request->input('id_evaluasi');
         $jawabanUser = $request->input('jawaban'); // Tangkap jawaban dari request
 
         $skor = 0;
-        foreach ($jawabanUser as $idSoal => $jawaban) {
-            $soal = BankSoalModel::find($idSoal); // Dapatkan soal berdasarkan ID
+        $totalSoal = BankSoalModel::count(); // Dapatkan jumlah total soal
 
-            if ($soal && $soal->kunci == $jawaban) {
+        // Periksa setiap jawaban terhadap soal yang sesuai
+        foreach (BankSoalModel::all() as $soal) {
+            // dd($soal->id, $soal->kunci, $jawabanUser[$soal->id]); // debuging isi jawaban  user 
+            if (isset($jawabanUser[$soal->id]) && $soal->kunci == $jawabanUser[$soal->id]) {
                 $skor++; // Tambahkan skor jika jawaban benar
             }
         }
 
         // Hitung persentase skor
-        $totalSoal = count($jawabanUser);
-        $persentaseSkor = ($skor / $totalSoal) * 100;
+        $persentaseSkor = ($totalSoal > 0) ? ($skor / $totalSoal) * 100 : 0;
+
+        // return "oke";
+
+        try {
+            EvaluasiStudentModel::create([
+                'id_evaluasi' => $id_evaluasi,
+                'id_user' => Auth::user()->id,
+                'nilai' => $persentaseSkor,
+                'jawaban_benar' => $totalSoal,
+            ]);
+
+            alert()->success('Selamat !', 'anda telah berhasil mengerjakan evaluasi ini !');
+            // return "simpan";
+            return redirect()->to(route('student.evaluasi.create'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return "gagal";
+
+            alert()->error('Gagal !', 'Terjadi kesalahan saat menyimpan ke database. !');
+            return redirect()->back();
+        }
 
         // Kirim feedback ke view, contoh: tampilkan skor
-        return view('student.evaluasi.hasil', ['skor' => $persentaseSkor]);
+        // return "nilai : $persentaseSkor, total soal : $totalSoal";
+    }
+
+
+    public function sambutan()
+    {
+
+        // return view('student.evaluasi.sambutan');
+        return "joss";
     }
 
 
@@ -68,6 +108,7 @@ class StudentEvaluasiController extends Controller
     public function create()
     {
         //
+        return view('student.evaluasi.sambutan');
     }
 
     /**

@@ -54,4 +54,8 @@ class MataKuliah extends Model
     {
         return $this->hasMany(EvaluasiModel::class, 'kode_mk', 'kode_mk');
     }
+    public function favorit()
+    {
+        return $this->hasMany(MatakuliahFavoritModel::class, 'kode_mk', 'kode_mk');
+    }
 }

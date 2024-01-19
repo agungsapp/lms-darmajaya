@@ -120,13 +120,20 @@
 										</div>
 								</div> --}}
 										<div class="card mt-3 shadow">
-												<img src="https://source.unsplash.com/1000x600?{{ $cat[$loop->iteration - 1] }}" class="rounded"
-														alt="" srcset="">
-												<div class="d-flex flex-column justify-content-between p-2" style="min-height: 130px;">
+												<img src="{{ asset('images') }}/lms/kelas/kelas.jpg" class="rounded" alt="" srcset="">
+												{{-- <img src="https://source.unsplash.com/1000x600?{{ $cat[$loop->iteration - 1] }}" class="rounded"
+														alt="" srcset=""> --}}
+												<div class="d-flex flex-column justify-content-between mt-3 p-2" style="min-height: 130px;">
 														<div>
 																<div class="d-flex justify-content-between">
 																		<h6 class="">{{ $mk->name }}</h6>
-																		<i class="ti-bookmark"></i>
+																		<a data-id="{{ $mk->kode_mk }}" class="btn_fav">
+																				@if ($mk->favorit->count() == 0)
+																						<i class="text ti-bookmark"></i>
+																				@else
+																						<i class="fa-solid fa-bookmark"></i>
+																				@endif
+																		</a>
 																</div>
 																<p class="m-0">Dosen :</p>
 																<p class="m-0">{{ $mk->dosen->first_name . ' ' . $mk->dosen->last_name }}</p>
@@ -141,3 +148,40 @@
 
 		</div>
 @endsection
+
+@push('script')
+		<script>
+				$(document).ready(function() {
+
+						const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+						$('.btn_fav').on('click', function() {
+								let button = $(this);
+								const id = $(this).data('id');
+								console.log(`di klik ! id nya ${id}`)
+
+								// membuat request ajax untuk menambahkan ke favorit. 
+								$.ajax({
+										url: '{{ route('student.dashboard.index') }}', // Pastikan ini adalah URL yang benar
+										type: 'POST',
+										data: {
+												_token: csrfToken,
+												id: id
+										},
+										success: function(response) {
+												// Perbarui ikon berdasarkan respons
+												if (response.status === 'ditambahkan') {
+														button.find('i').removeClass('ti-bookmark').addClass('fa-solid fa-bookmark');
+												} else {
+														button.find('i').removeClass('fa-solid fa-bookmark').addClass('ti-bookmark');
+												}
+										},
+										error: function(xhr, status, error) {
+												// Handle error
+												console.log("Error: " + error);
+										}
+								});
+						})
+				});
+		</script>
+@endpush

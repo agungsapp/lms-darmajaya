@@ -20,4 +20,9 @@ class EvaluasiModel extends Model
     {
         return $this->hasMany(EvaluasiStudentModel::class, 'id_evaluasi', 'id');
     }
+
+    public function matkul()
+    {
+        return $this->belongsTo(MataKuliah::class, 'kode_mk', 'kode_mk');
+    }
 }

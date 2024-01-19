@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\Student\StudentEvaluasiController;
 use App\Http\Controllers\Student\StudentKelasController;
+use App\Http\Controllers\Student\StudentNilaiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -83,9 +84,19 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:3'])->grou
     Route::resource('/dashboard', StudentDashboardController::class);
     Route::resource('/kelas', StudentKelasController::class);
     Route::resource('/evaluasi', StudentEvaluasiController::class);
+    Route::resource('/nilai', StudentNilaiController::class);
     Route::get('/evaluasi/index/{id}', [StudentEvaluasiController::class, 'index'])->name('evaluasi.index.get');
+    // Route::get('/evaluasi/sambutan', function () {
+    //     return view('student.evaluasi.sambutan');
+    // })->name('evaluasi.sambutan');
+    Route::get('/evaluasi/sambutan', [StudentEvaluasiController::class, 'sambutan'])->name('evaluasi.sambutan');
     Route::post('/evaluasi/koreksi', [StudentEvaluasiController::class, 'koreksiJawaban'])->name('evaluasi.koreksi');
 });
+
+Route::get('/cekcek', [StudentEvaluasiController::class, 'sambutan']);
+// Route::get('/cekcek', function () {
+//     return view('student.evaluasi.sambutan');
+// });
 
 require __DIR__ . '/auth.php';
 
@@ -93,12 +104,15 @@ require __DIR__ . '/auth.php';
 
 // perbaiki foreign key yang benar 12/01/2024 DONE
 // rencana ada status di evaluasi DONE
-
-
 // delete kelas lupa
 // buat relasi anttara mk dengan evaluasi dengan belongsto
-
-
 // mengerjakan students . 
-
 // update pagi tadi . semua udah beres sampe pengacakn soal . tapi untuk pengecekan nilai belum di uji
+
+
+// update implementasi fisher yates done / insert nilai ke db, dan pemblokiran pengerjaan soal .
+
+// besok :
+// ada error di sini jadi cek aja
+// $evaluasi = EvaluasiModel::find($id);
+// $soal = $evaluasi->bankSoal;

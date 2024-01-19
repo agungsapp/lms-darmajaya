@@ -38,34 +38,38 @@
 		{{-- section soal --}}
 		<div class="row">
 				<div class="col-12">
-						<form action="student.evaluasi.koreksi" method="post">
+						<form action="{{ route('student.evaluasi.koreksi') }}" method="post">
 								@csrf
+
+								<input type="hidden" name="id_evaluasi" value="{{ $eval->id }}">
 
 								@foreach ($soal as $index => $s)
 										<div class="card mt-3">
 												<div class="card-body">
 														<h5>{{ $s->soal }}</h5>
 														<div>
-																<input type="radio" id="opsi_a_{{ $index }}" name="jawaban[{{ $s->id }}]" value="a">
+																<input type="radio" id="opsi_a_{{ $index }}" name="jawaban[{{ $s->id }}]"
+																		value="{{ $s->opsi_a }}">
 																<label for="opsi_a_{{ $index }}">{{ $s->opsi_a }}</label>
 														</div>
 														<div>
-																<input type="radio" id="opsi_b_{{ $index }}" name="jawaban[{{ $s->id }}]" value="b">
+																<input type="radio" id="opsi_b_{{ $index }}" name="jawaban[{{ $s->id }}]"
+																		value="{{ $s->opsi_b }}">
 																<label for="opsi_b_{{ $index }}">{{ $s->opsi_b }}</label>
 														</div>
 														<div>
 																<input type="radio" id="opsi_c_{{ $index }}" name="jawaban[{{ $s->id }}]"
-																		value="c">
+																		value="{{ $s->opsi_c }}">
 																<label for="opsi_c_{{ $index }}">{{ $s->opsi_c }}</label>
 														</div>
 														<div>
 																<input type="radio" id="opsi_d_{{ $index }}" name="jawaban[{{ $s->id }}]"
-																		value="d">
+																		value="{{ $s->opsi_d }}">
 																<label for="opsi_d_{{ $index }}">{{ $s->opsi_d }}</label>
 														</div>
 														<div>
 																<input type="radio" id="opsi_e_{{ $index }}" name="jawaban[{{ $s->id }}]"
-																		value="e">
+																		value="{{ $s->opsi_e }}">
 																<label for="opsi_e_{{ $index }}">{{ $s->opsi_e }}</label>
 														</div>
 												</div>

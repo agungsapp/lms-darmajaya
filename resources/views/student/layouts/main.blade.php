@@ -5,6 +5,7 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Student | LMS</title>
 		<!-- plugins:css -->
 		<link rel="stylesheet" href="{{ asset('vendors') }}/feather/feather.css" />
@@ -29,6 +30,8 @@
 </head>
 
 <body>
+		@include('sweetalert::alert')
+
 		<div class="container-scroller">
 				<!-- partial:partials/_navbar.html -->
 				@include('student.layouts.partials.topbar')
@@ -99,6 +102,9 @@
 		<script src="{{ asset('js') }}/dashboard.js"></script>
 		<script src="{{ asset('js') }}/Chart.roundedBarCharts.js"></script>
 		<!-- End custom js for this page-->
+
+		{{-- sweet alert js  --}}
+		@include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 
 		@stack('script')
 </body>

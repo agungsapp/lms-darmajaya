@@ -20,8 +20,8 @@
 								<span class="menu-title">Evaluasi</span>
 						</a>
 				</li>
-				<li class="nav-item">
-						<a class="nav-link" href="#">
+				<li class="nav-item {{ \Route::is('student.nilai.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('student.nilai.index') }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Nilai</span>
 						</a>

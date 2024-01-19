@@ -3,8 +3,10 @@
 		<div class="container">
 				<div class="row">
 						<div class="col-12">
-								<img src="https://source.unsplash.com/1000x600?computer" class="img-fluid w-100 rounded-lg" alt=""
-										srcset="">
+								<img src="{{ asset('images') }}/lms/kelas/kelas.jpg" class="img-fluid w-100 rounded-lg" alt=""
+										style="max-height: 200px; object-fit: cover; object-position: center;" srcset="">
+								{{-- <img src="https://source.unsplash.com/1000x600?computer" class="img-fluid w-100 rounded-lg" alt=""
+										srcset=""> --}}
 						</div>
 						<div class="col-12">
 								<div class="mt-5 p-2">

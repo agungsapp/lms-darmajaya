@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\MataKuliah;
-use App\Models\MatakuliahFavoritModel;
+use App\Models\EvaluasiStudentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class StudentKelasController extends Controller
+class StudentNilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,18 @@ class StudentKelasController extends Controller
     public function index()
     {
         //
+
         $data = [
-            'mks' => MatakuliahFavoritModel::where('id_user', Auth::id())->get()
+            'nilais' => EvaluasiStudentModel::where('id_user', Auth::user()->id)->get(),
         ];
 
-        return view('student.kelas.index', $data);
+        // dd($data['nilais']);
+
+
+
+
+
+        return view('student.nilai.index', $data);
     }
 
     /**
@@ -45,15 +51,6 @@ class StudentKelasController extends Controller
     public function show(string $id)
     {
         //
-
-        $mks = MataKuliah::where('kode_mk', $id)->get()->first();
-        // dd($mks->modul->count());
-        // dd($mks);
-        $data = [
-            'mk' => $mks,
-        ];
-
-        return view('student.kelas.show', $data);
     }
 
     /**
