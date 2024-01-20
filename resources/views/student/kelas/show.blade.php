@@ -81,8 +81,17 @@
 																						</div>
 																						<div class="mt-3">
 																								<p>Durasi : {{ $e->durasi }}Menit</p>
-																								<a href="{{ route('student.evaluasi.index.get', $e->id) }}" class="btn btn-primary">Lihat
-																										Evaluasi</a>
+																								<div class="d-flex justify-content-between align-items-baseline mt-4">
+																										<a href="{{ route('student.evaluasi.index.get', $e->id) }}" class="btn btn-primary">Lihat
+																												Evaluasi</a>
+
+																										@if ($e->evaluasistudent->where('id_user', Auth::id())->count() != 0)
+																												<h6 class="text-success d-inline fw-bold"><i class="ti-check-box"></i><span
+																																class="ml-2">Sudah
+																																dikerjakan</span></h6>
+																												{{-- <button class="btn-success btn">Sudah dikerjakan</button> --}}
+																										@endif
+																								</div>
 																						</div>
 																				</div>
 																		</div>

@@ -20,31 +20,38 @@ class StudentEvaluasiController extends Controller
         $cekNilai = EvaluasiStudentModel::where('id_user', Auth::user()->id)->where('id_evaluasi', $id)->get();
         // dd(empty($cekNilai));
         if ($cekNilai->count()  == 0) {
+            // pengecekan apakah ada id yang dikirimkan 
+            if ($id != null) {
+                $evaluasi = EvaluasiModel::find($id);
+                $soal = $evaluasi->bankSoal;
+                $soalArray = $soal->all();
 
-            $evaluasi = EvaluasiModel::find($id);
-            $soal = $evaluasi->bankSoal;
+                for ($i = count($soalArray) - 1; $i > 0; $i--) {
+                    $j = rand(0, $i);
+                    $temp = $soalArray[$i];
+                    $soalArray[$i] = $soalArray[$j];
+                    $soalArray[$j] = $temp;
+                }
 
-            // Mengonversi Collection ke Array
-            $soalArray = $soal->all();
+                $data = [
+                    'eval' => $evaluasi,
+                    'soal' => $soalArray,
+                ];
+                // dd($data['soal']);
 
-            // implementasi algorithm fisher yates mulai
-            for ($i = count($soalArray) - 1; $i > 0; $i--) {
-                $j = rand(0, $i);
-                $temp = $soalArray[$i];
-                $soalArray[$i] = $soalArray[$j];
-                $soalArray[$j] = $temp;
+                return view('student.evaluasi.index', $data);
+            } else {
+
+                // $evaluasi = EvaluasiModel::where()
+
+                $data = [
+                    'evals' => ''
+                ];
+
+                return "id evaluasi null";
             }
-            // end pengacakan
-
-            $data = [
-                'eval' => $evaluasi,
-                'soal' => $soalArray,
-            ];
-            // dd($data['soal']);
-
-            return view('student.evaluasi.index', $data);
         } else {
-            alert()->error('Maaf !', 'Anda tidak dapat mengerjakan evaluasi lebih dari satu kali');
+            alert()->error('Maaf !', 'Anda sudah mengerjakan evaluasi ini sebelumnya. anda tidak dapat mengerjakan evaluasi lebih dari satu kali');
             return redirect()->back();
         }
     }
@@ -75,7 +82,7 @@ class StudentEvaluasiController extends Controller
                 'id_evaluasi' => $id_evaluasi,
                 'id_user' => Auth::user()->id,
                 'nilai' => $persentaseSkor,
-                'jawaban_benar' => $totalSoal,
+                'jawaban_benar' => $skor,
             ]);
 
             alert()->success('Selamat !', 'anda telah berhasil mengerjakan evaluasi ini !');

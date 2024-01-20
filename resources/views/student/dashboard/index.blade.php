@@ -128,7 +128,7 @@
 																<div class="d-flex justify-content-between">
 																		<h6 class="">{{ $mk->name }}</h6>
 																		<a data-id="{{ $mk->kode_mk }}" class="btn_fav">
-																				@if ($mk->favorit->count() == 0)
+																				@if ($mk->favorit->where('id_user', Auth::id())->count() === 0)
 																						<i class="text ti-bookmark"></i>
 																				@else
 																						<i class="fa-solid fa-bookmark"></i>

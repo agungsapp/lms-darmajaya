@@ -11,15 +11,15 @@
 				<li class="nav-item {{ \Route::is('student.kelas.*') ? 'active' : '' }}">
 						<a class="nav-link" href="{{ route('student.kelas.index') }}">
 								<i class="icon-grid menu-icon"></i>
-								<span class="menu-title">Modul Saya</span>
+								<span class="menu-title">Modul Favorit Saya</span>
 						</a>
 				</li>
-				<li class="nav-item {{ \Route::is('student.evaluasi.*') ? 'active' : '' }}">
+				{{-- <li class="nav-item {{ \Route::is('student.evaluasi.*') ? 'active' : '' }}">
 						<a class="nav-link" href="{{ route('student.evaluasi.index') }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Evaluasi</span>
 						</a>
-				</li>
+				</li> --}}
 				<li class="nav-item {{ \Route::is('student.nilai.*') ? 'active' : '' }}">
 						<a class="nav-link" href="{{ route('student.nilai.index') }}">
 								<i class="icon-grid menu-icon"></i>

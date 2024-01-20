@@ -116,3 +116,6 @@ require __DIR__ . '/auth.php';
 // ada error di sini jadi cek aja
 // $evaluasi = EvaluasiModel::find($id);
 // $soal = $evaluasi->bankSoal;
+
+
+// permasalahan di temukan karena id null ternyata , jadi sementara di disable aja menu evaluasi karna kayanya masih belum penting
