@@ -1,46 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Dosen;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hari;
 use App\Models\MataKuliah;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-// use RealRashid\SweetAlert\Facades\Alert;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class DosenDataKelasController extends Controller
+class AdminMasterKelasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
-    protected $mkModel;
-
-    public function __construct()
-    {
-        $this->mkModel = new MataKuliah();
-    }
-
     public function index()
     {
         //
-
         $data = [
-            'kodemk' => Matakuliah::generateKodeMk(),
+            'kodemk' => MataKuliah::generateKodeMk(),
+            'dosen' => User::where('role', 2)->get(),
             'hari' => Hari::all(),
-            'mks' => MataKuliah::where('id_users', Auth::id())->get(),
+            'mks' => MataKuliah::all()
         ];
 
-        // dd($data['kodemk']);
-
-
-        $title = 'Delete User!';
-        $text = "Are you sure you want to delete?";
-        confirmDelete($title, $text);
-
-        return view('dosen.data_kelas.index', $data);
+        return view('admin.kelas.index', $data);
     }
 
     /**
@@ -57,11 +40,10 @@ class DosenDataKelasController extends Controller
     public function store(Request $request)
     {
         //
-
         $data = [
             'kode_mk' => $request->kode,
             'name' => ucwords($request->name),
-            'id_users' => $request->id_dosen,
+            'id_users' => $request->dosen,
         ];
 
         try {
@@ -98,22 +80,21 @@ class DosenDataKelasController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = [
+            'kode_mk' => $request->kode,
+            'name' => ucwords($request->name),
+            'id_users' => $request->dosen,
+        ];
+
         try {
+            $mk = MataKuliah::findOrFail($id);
+            $mk->update($data);
 
-            $mk = $this->mkModel->findOrFail($id);
-
-
-            $mk->update(
-                [
-                    'name' => $request->name,
-                ],
-            );
-
-            alert()->success('Berhasil !', 'update data kelas berhasil !');
+            alert()->success('Berhasil !', 'berhasil menambahkan data kelas !');
             return redirect()->back();
         } catch (\Throwable $th) {
-            //throw $th;
-            alert()->error('Error', 'terjadi kesalahan pada server !');
+            // throw $th;
+            alert()->error('Error', 'gagal menambahkan data kelas !');
             return redirect()->back();
         }
     }
@@ -124,17 +105,15 @@ class DosenDataKelasController extends Controller
     public function destroy(string $id)
     {
         //
-
         try {
-            $mk = $this->mkModel->find($id);
-            // dd($mk);
-            $mk->delete();
+            $mk = MataKuliah::findOrFail($id);
+            $mk->delete($id);
 
-            alert()->success('Berhasil !', 'delete data kelas berhasil !');
+            alert()->success('Berhasil !', 'berhasil menghapus data kelas !');
             return redirect()->back();
         } catch (\Throwable $th) {
             // throw $th;
-            alert()->error('Gagal !', 'Terjadi kesalahan saat menghapus data. !');
+            alert()->error('Error', 'gagal menambahkan data kelas !');
             return redirect()->back();
         }
     }

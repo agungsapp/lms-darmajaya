@@ -4,9 +4,9 @@
 				<div class="col-md-12 grid-margin">
 						<div class="row">
 								<div class="col-12 col-xl-8 mb-xl-0 mb-4">
-										<h3 class="font-weight-bold">Welcome Admin</h3>
+										<h3 class="font-weight-bold">Hai, Admin</h3>
 										<h6 class="font-weight-normal mb-0">
-												All systems are running smoothly! You have
+												Semua sistem berjalan dengan baik
 										</h6>
 								</div>
 						</div>
@@ -41,7 +41,7 @@
 										<div class="card card-tale">
 												<div class="card-body">
 														<p class="mb-4">Jumlah Data Seluruh Kelas</p>
-														<p class="fs-30 mb-2">2</p>
+														<p class="fs-30 mb-2">{{ $kelas }}</p>
 														{{-- <p>10.00% (30 days)</p> --}}
 												</div>
 										</div>
@@ -50,23 +50,21 @@
 										<div class="card card-dark-blue">
 												<div class="card-body">
 														<p class="mb-4">Total Dosen</p>
-														<p class="fs-30 mb-2">61344</p>
-														<p>22.00% (30 days)</p>
+														<p class="fs-30 mb-2">{{ $dosen }}</p>
 												</div>
 										</div>
 								</div>
 						</div>
 						<div class="row">
 								<div class="col-md-6 mb-lg-0 stretch-card transparent mb-4">
-										<div class="card card-light-blue">
+										<div class="card card-light-danger">
 												<div class="card-body">
 														<p class="mb-4">Jumlah Mahasiswa</p>
-														<p class="fs-30 mb-2">34040</p>
-														<p>2.00% (30 days)</p>
+														<p class="fs-30 mb-2">{{ $mahasiswa }}</p>
 												</div>
 										</div>
 								</div>
-								<div class="col-md-6 stretch-card transparent">
+								{{-- <div class="col-md-6 stretch-card transparent">
 										<div class="card card-light-danger">
 												<div class="card-body">
 														<p class="mb-4">Jumlah Mahasiswa Aktif</p>
@@ -74,7 +72,7 @@
 														<p>0.22% (30 days)</p>
 												</div>
 										</div>
-								</div>
+								</div> --}}
 						</div>
 				</div>
 		</div>

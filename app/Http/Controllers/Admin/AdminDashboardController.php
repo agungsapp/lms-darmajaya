@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataKuliah;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -13,7 +15,16 @@ class AdminDashboardController extends Controller
     public function index()
     {
         //
-        return view('admin.dashboard.index');
+
+        $data = [
+            'kelas' => MataKuliah::all()->count(),
+            'dosen' => User::where('role', 2)->get()->count(),
+            'mahasiswa' => User::where('role', 3)->get()->count(),
+        ];
+
+        // dd($data);
+
+        return view('admin.dashboard.index', $data);
     }
 
     /**

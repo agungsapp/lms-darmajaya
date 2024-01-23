@@ -26,12 +26,14 @@ class StudentEvaluasiController extends Controller
                 $soal = $evaluasi->bankSoal;
                 $soalArray = $soal->all();
 
+                // implementasi algoritma fisher yates start
                 for ($i = count($soalArray) - 1; $i > 0; $i--) {
                     $j = rand(0, $i);
                     $temp = $soalArray[$i];
                     $soalArray[$i] = $soalArray[$j];
                     $soalArray[$j] = $temp;
                 }
+                // implementasi algoritma fisher yates end
 
                 $data = [
                     'eval' => $evaluasi,

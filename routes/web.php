@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminDataDosenController;
+use App\Http\Controllers\Admin\AdminMasterKelasController;
 use App\Http\Controllers\Dosen\DosenBankSoalController;
 use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Dosen\DosenDataKelasController;
@@ -56,6 +58,8 @@ Route::middleware('auth')->group(function () {
 // prefix admin
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:1'])->group(function () {
     Route::resource('/dashboard', AdminDashboardController::class);
+    Route::resource('/kelas', AdminMasterKelasController::class);
+    Route::resource('/dosen', AdminDataDosenController::class);
 });
 
 // profix dosen
@@ -119,3 +123,6 @@ require __DIR__ . '/auth.php';
 
 
 // permasalahan di temukan karena id null ternyata , jadi sementara di disable aja menu evaluasi karna kayanya masih belum penting
+
+
+// next admin 
