@@ -82,26 +82,35 @@
 		{{-- search --}}
 		<div class="row">
 				<div class="col-12">
-						<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="Cari modul ..." aria-label="Cari modul ..."
-										aria-describedby="button-addon2">
-								<div class="input-group-append">
-										<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
+						<form action="{{ route('student.dashboard.index') }}" method="GET">
+
+								<div class="input-group mb-3">
+										<input type="text" class="form-control" name="keyword" placeholder="Cari modul ..."
+												aria-label="Cari modul ..." aria-describedby="button-addon2">
+										<div class="input-group-append">
+												<button class="btn btn-primary" type="submit" id="button-addon2">Cari</button>
+										</div>
 								</div>
-						</div>
+						</form>
 				</div>
 		</div>
 
 
 		{{-- list modul --}}
 		<div class="row">
-				{{-- loop area --}}
-				@php
-						$cat = ['computer', 'book', 'database', 'board', 'coding', 'cloud'];
-				@endphp
-				@for ($i = 0; $i < 5; $i++)
-						<div class="col-6 col-lg-3">
-								{{-- <div class="card mt-3 overflow-hidden shadow">
+
+				@if (empty($mks))
+						<div class="col-12 p-4">
+								<h5 class="text-secondary">Mohon maaf data modul belum tersedia saat ini.</h5>
+						</div>
+				@else
+						{{-- loop area --}}
+						@php
+								$cat = ['computer', 'book', 'database', 'board', 'coding', 'cloud'];
+						@endphp
+						@foreach ($mks as $mk)
+								<div class="col-6 col-lg-3">
+										{{-- <div class="card mt-3 overflow-hidden shadow">
 										<img src="https://source.unsplash.com/1000x600?{{ $cat[$i] }}" alt="" srcset="">
 										<div class="card-body bg-transparent" style="min-height: 100px;">
 												<h6 class="card-title">Pemrogramman dasar</h6>
@@ -110,20 +119,69 @@
 												<a href="#" class="btn btn-sm btn-block btn-primary">Go somewhere</a>
 										</div>
 								</div> --}}
-								<div class="card mt-3 shadow">
-										<img src="https://source.unsplash.com/1000x600?{{ $cat[$i] }}" class="rounded" alt=""
-												srcset="">
-										<div class="d-flex flex-column justify-content-between p-2" style="min-height: 130px;">
-												<div>
-														<h6 class="">Pemrogramman dasar</h6>
-														<p class="m-0">Dosen :</p>
-														<p class="m-0">Sulyono S.kom</p>
+										<div class="card mt-3 shadow">
+												<img src="{{ asset('images') }}/lms/kelas/kelas.jpg" class="rounded" alt="" srcset="">
+												{{-- <img src="https://source.unsplash.com/1000x600?{{ $cat[$loop->iteration - 1] }}" class="rounded"
+														alt="" srcset=""> --}}
+												<div class="d-flex flex-column justify-content-between mt-3 p-2" style="min-height: 130px;">
+														<div>
+																<div class="d-flex justify-content-between">
+																		<h6 class="">{{ $mk->name }}</h6>
+																		<a data-id="{{ $mk->kode_mk }}" class="btn_fav">
+																				@if ($mk->favorit->where('id_user', Auth::id())->count() === 0)
+																						<i class="text ti-bookmark"></i>
+																				@else
+																						<i class="fa-solid fa-bookmark"></i>
+																				@endif
+																		</a>
+																</div>
+																<p class="m-0">Dosen :</p>
+																<p class="m-0">{{ $mk->dosen->first_name . ' ' . $mk->dosen->last_name }}</p>
+														</div>
+														<a href="{{ route('student.kelas.show', $mk->kode_mk) }}" class="btn btn-sm btn-block btn-primary">Buka
+																modul</a>
 												</div>
-												<a href="#" class="btn btn-sm btn-block btn-primary">Buka modul</a>
 										</div>
 								</div>
-						</div>
-				@endfor
+						@endforeach
+				@endif
 
 		</div>
 @endsection
+
+@push('script')
+		<script>
+				$(document).ready(function() {
+
+						const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+						$('.btn_fav').on('click', function() {
+								let button = $(this);
+								const id = $(this).data('id');
+								console.log(`di klik ! id nya ${id}`)
+
+								// membuat request ajax untuk menambahkan ke favorit. 
+								$.ajax({
+										url: '{{ route('student.dashboard.index') }}', // Pastikan ini adalah URL yang benar
+										type: 'POST',
+										data: {
+												_token: csrfToken,
+												id: id
+										},
+										success: function(response) {
+												// Perbarui ikon berdasarkan respons
+												if (response.status === 'ditambahkan') {
+														button.find('i').removeClass('ti-bookmark').addClass('fa-solid fa-bookmark');
+												} else {
+														button.find('i').removeClass('fa-solid fa-bookmark').addClass('ti-bookmark');
+												}
+										},
+										error: function(xhr, status, error) {
+												// Handle error
+												console.log("Error: " + error);
+										}
+								});
+						})
+				});
+		</script>
+@endpush

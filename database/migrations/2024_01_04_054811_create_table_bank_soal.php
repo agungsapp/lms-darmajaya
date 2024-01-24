@@ -26,6 +26,11 @@ return new class extends Migration
             $table->foreign('id_evaluasi')
                 ->references('id')
                 ->on('evaluasi');
+
+            // $table->foreign('id_evaluasi')
+            //     ->references('id')
+            //     ->on('evaluasi')
+            //     ->onDelete('cascade');
         });
     }
 

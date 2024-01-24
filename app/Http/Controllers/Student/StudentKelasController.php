@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\MataKuliah;
-use App\Models\User;
+use App\Models\MatakuliahFavoritModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AdminDashboardController extends Controller
+class StudentKelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +16,11 @@ class AdminDashboardController extends Controller
     public function index()
     {
         //
-
         $data = [
-            'kelas' => MataKuliah::all()->count(),
-            'dosen' => User::where('role', 2)->get()->count(),
-            'mahasiswa' => User::where('role', 3)->get()->count(),
+            'mks' => MatakuliahFavoritModel::where('id_user', Auth::id())->get()
         ];
 
-        // dd($data);
-
-        return view('admin.dashboard.index', $data);
+        return view('student.kelas.index', $data);
     }
 
     /**
@@ -49,6 +45,15 @@ class AdminDashboardController extends Controller
     public function show(string $id)
     {
         //
+
+        $mks = MataKuliah::where('kode_mk', $id)->get()->first();
+        // dd($mks->modul->count());
+        // dd($mks);
+        $data = [
+            'mk' => $mks,
+        ];
+
+        return view('student.kelas.show', $data);
     }
 
     /**

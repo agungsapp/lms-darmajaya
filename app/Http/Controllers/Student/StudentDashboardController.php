@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataKuliah;
+use App\Models\MatakuliahFavoritModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return view('student.dashboard.index');
+        $keyword = $request->input('keyword');
+
+        if (!is_null($keyword)) {
+            $mks = MataKuliah::where('name', 'like', '%' . $keyword . '%')->get();
+        } else {
+            $mks = MataKuliah::all();
+        }
+
+        // dd($mks);
+
+        return view('student.dashboard.index', ['mks' => $mks]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +42,36 @@ class StudentDashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // update or create data kelas favorit
+        $kodeMk = $request->id; // Atau $request->kode_mk, tergantung pada apa yang Anda kirim dari frontend
+        $idUser = Auth::id();
+
+        //  cek apakah sudah ada di daftar favorit user 
+        $favorit = MatakuliahFavoritModel::where('kode_mk', $kodeMk)
+            ->where('id_user', $idUser)
+            ->first();
+
+        //  tindakan jika sudah ada di daftar favorit 
+        if ($favorit) {
+            // Jika sudah ada, hapus entri tersebut
+            MatakuliahFavoritModel::where('kode_mk', $kodeMk)
+                ->where('id_user', $idUser)
+                ->delete();
+
+            return response()->json(['status' => 'dihapus']);
+        } else {
+            // Jika belum ada, tambahkan sebagai favorit
+            MatakuliahFavoritModel::insert([
+                'kode_mk' => $kodeMk,
+                'id_user' => $idUser,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return response()->json(['status' => 'ditambahkan']);
+        }
+
+        dd($kodeMk, $idUser);
     }
 
     /**

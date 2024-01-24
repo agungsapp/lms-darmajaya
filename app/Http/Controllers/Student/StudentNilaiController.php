@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\MataKuliah;
-use App\Models\User;
+use App\Models\EvaluasiStudentModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AdminDashboardController extends Controller
+class StudentNilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +17,16 @@ class AdminDashboardController extends Controller
         //
 
         $data = [
-            'kelas' => MataKuliah::all()->count(),
-            'dosen' => User::where('role', 2)->get()->count(),
-            'mahasiswa' => User::where('role', 3)->get()->count(),
+            'nilais' => EvaluasiStudentModel::where('id_user', Auth::user()->id)->get(),
         ];
 
-        // dd($data);
+        // dd($data['nilais']);
 
-        return view('admin.dashboard.index', $data);
+
+
+
+
+        return view('student.nilai.index', $data);
     }
 
     /**

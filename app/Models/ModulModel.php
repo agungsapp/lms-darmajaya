@@ -24,4 +24,9 @@ class ModulModel extends Model
             $model->id = Uuid::uuid4()->toString();
         });
     }
+
+    public function matakuliah()
+    {
+        return $this->belongsTo(MataKuliah::class, 'kode_mk', 'kode_mk');
+    }
 }
