@@ -24,6 +24,12 @@
 								<span class="menu-title">Data Evaluasi</span>
 						</a>
 				</li>
+				<li class="nav-item {{ \Route::is('dosen.nilai.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('dosen.nilai.index') }}">
+								<i class="icon-grid menu-icon"></i>
+								<span class="menu-title">Data Nilai</span>
+						</a>
+				</li>
 
 
 

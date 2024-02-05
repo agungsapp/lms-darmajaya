@@ -15,4 +15,9 @@ class EvaluasiStudentModel extends Model
     {
         return $this->BelongsTo(EvaluasiModel::class, 'id_evaluasi', 'id');
     }
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
 }
