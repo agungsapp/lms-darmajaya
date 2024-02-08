@@ -7,6 +7,7 @@ use App\Http\Controllers\Dosen\DosenBankSoalController;
 use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Dosen\DosenDataKelasController;
 use App\Http\Controllers\Dosen\DosenDataModulController;
+use App\Http\Controllers\Dosen\DosenDataNilaiController;
 use App\Http\Controllers\Dosen\DosenEvaluasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentDashboardController;
@@ -68,6 +69,8 @@ Route::prefix('dosen')->name('dosen.')->middleware(['auth', 'role:2'])->group(fu
     Route::resource('/datakelas', DosenDataKelasController::class);
     Route::resource('/modul', DosenDataModulController::class);
     Route::resource('/evaluasi', DosenEvaluasiController::class);
+    Route::resource('/nilai', DosenDataNilaiController::class);
+    Route::get('/nilai-mahasiswa/{id}', [DosenDataNilaiController::class, 'showNilai'])->name('nilai.show.nilai');
     // ajax area evaluasi start
     Route::get('/evaluasi/publish/{id}', [DosenEvaluasiController::class, 'publish'])->name('evaluasi.publish');
     // Route::get('/evaluasi/draft/{id}', [DosenEvaluasiController::class, 'draft'])->name('evaluasi.draft');

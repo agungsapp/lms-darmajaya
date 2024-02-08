@@ -27,7 +27,7 @@
 										<div class="col-lg-4 mx-auto">
 												<div class="auth-form-light px-sm-5 px-4 py-5 text-left">
 														<div class="brand-logo">
-																<img src="{{ asset('images') }}/logo.svg" alt="logo">
+																<img src="{{ asset('images') }}/lms/logo/logo.png" alt="logo darmajaya" srcset="">
 														</div>
 														<h4>Belum Punya akun ?</h4>
 														<h6 class="font-weight-light mb-4">Daftar sebagai mahasiswa IBI Darmajaya</h6>
