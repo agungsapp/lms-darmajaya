@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\EvaluasiStudentModel;
 use App\Models\MataKuliah;
 use App\Models\MatakuliahFavoritModel;
 use Illuminate\Http\Request;
@@ -23,9 +24,15 @@ class StudentDashboardController extends Controller
             $mks = MataKuliah::all();
         }
 
-        // dd($mks);
+        $data = [
+            'moduls' => MataKuliah::all(),
+            'mks' => $mks,
+            'favorit' => MatakuliahFavoritModel::all(),
+            'evaluasi' => EvaluasiStudentModel::where('id_user', Auth::id())->get()
+        ];
+        // dd($data['moduls']);
 
-        return view('student.dashboard.index', ['mks' => $mks]);
+        return view('student.dashboard.index', $data);
     }
 
 

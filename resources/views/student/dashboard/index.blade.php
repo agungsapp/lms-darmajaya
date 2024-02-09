@@ -39,8 +39,8 @@
 								<div class="col-md-6 stretch-card transparent mb-4">
 										<div class="card card-tale">
 												<div class="card-body">
-														<p class="mb-4">Kelas Anda</p>
-														<p class="fs-30 mb-2">2</p>
+														<p class="mb-4">Moduk Tersedia</p>
+														<p class="fs-30 mb-2">{{ $moduls->count() }}</p>
 														{{-- <p>10.00% (30 days)</p> --}}
 												</div>
 										</div>
@@ -48,9 +48,9 @@
 								<div class="col-md-6 stretch-card transparent mb-4">
 										<div class="card card-dark-blue">
 												<div class="card-body">
-														<p class="mb-4">Total Bookings</p>
-														<p class="fs-30 mb-2">61344</p>
-														<p>22.00% (30 days)</p>
+														<p class="mb-4">Modul Favorit</p>
+														<p class="fs-30 mb-2">{{ $favorit->count() }}</p>
+														{{-- <p>22.00% (30 days)</p> --}}
 												</div>
 										</div>
 								</div>
@@ -59,13 +59,13 @@
 								<div class="col-md-6 mb-lg-0 stretch-card transparent mb-4">
 										<div class="card card-light-blue">
 												<div class="card-body">
-														<p class="mb-4">Number of Meetings</p>
-														<p class="fs-30 mb-2">34040</p>
-														<p>2.00% (30 days)</p>
+														<p class="mb-4">Evaluasi yang di selesaikan</p>
+														<p class="fs-30 mb-2">{{ $evaluasi->count() }}</p>
+														{{-- <p>2.00% (30 days)</p> --}}
 												</div>
 										</div>
 								</div>
-								<div class="col-md-6 stretch-card transparent">
+								{{-- <div class="col-md-6 stretch-card transparent">
 										<div class="card card-light-danger">
 												<div class="card-body">
 														<p class="mb-4">Number of Clients</p>
@@ -73,7 +73,7 @@
 														<p>0.22% (30 days)</p>
 												</div>
 										</div>
-								</div>
+								</div> --}}
 						</div>
 				</div>
 		</div>
