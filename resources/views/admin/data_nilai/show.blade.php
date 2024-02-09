@@ -1,4 +1,4 @@
-@extends('dosen.layouts.main')
+@extends('admin.layouts.main')
 @section('content')
 		<div class="row">
 				<div class="col-12">
@@ -7,7 +7,7 @@
 										<button id="kembali" class="btn btn-primary">Kembali</button>
 								</div>
 								<div>
-										<a href="{{ route('dosen.cetak', $mk->kode_mk) }}" target="_blank" class="btn btn-info"> <i class="ti-import"></i>
+										<a href="{{ route('admin.cetak', $mk->kode_mk) }}" target="_blank" class="btn btn-info"> <i class="ti-import"></i>
 												<span class="ml-2">Export</span></a>
 								</div>
 						</div>
@@ -55,7 +55,7 @@
 																		</td>
 																		<td>
 																				@if ($e->evaluasistudent->count() > 0)
-																						<a href="{{ route('dosen.nilai.show.nilai', $e->id) }}" class="btn btn-success">lihat data nilai</a>
+																						<a href="{{ route('admin.nilai.show.nilai', $e->id) }}" class="btn btn-success">lihat data nilai</a>
 																				@else
 																						<button class="btn btn-danger" disabled>tidak ada data</button>
 																				@endif

@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Dosen;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EvaluasiModel;
 use App\Models\EvaluasiStudentModel;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class DosenDataNilaiController extends Controller
+class AdminDataNilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +16,10 @@ class DosenDataNilaiController extends Controller
     public function index()
     {
         //
-
         $data = [
-            'mks' => MataKuliah::where('id_users', Auth::id())->get()
+            'mks' => MataKuliah::all()
         ];
-
-
-        // dd($data['nilais']);
-
-        return view('dosen.data_nilai.index', $data);
-
-        // return "JOSS";
+        return view('admin.data_nilai.index', $data);
     }
 
     /**
@@ -53,17 +45,14 @@ class DosenDataNilaiController extends Controller
     {
         //
 
-
         $data = [
             'mk' => MataKuliah::where('kode_mk', $id)->first(),
             'evals' => EvaluasiModel::where('kode_mk', $id)->get(),
         ];
 
         // dd($data['mk']);
-        return view('dosen.data_nilai.show', $data);
+        return view('admin.data_nilai.show', $data);
     }
-
-
 
 
     public function showNilai(string $id)
@@ -72,9 +61,8 @@ class DosenDataNilaiController extends Controller
             'nilais' => EvaluasiStudentModel::where('id_evaluasi', $id)->get()
         ];
 
-        return view('dosen.data_nilai.show_nilai', $data);
+        return view('admin.data_nilai.show_nilai', $data);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -98,11 +86,5 @@ class DosenDataNilaiController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-
-    public function cetak()
-    {
-        dd("data");
     }
 }
