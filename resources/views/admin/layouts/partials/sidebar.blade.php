@@ -21,13 +21,13 @@
 								<span class="menu-title">Master Kelas</span>
 						</a>
 				</li>
-				<li class="nav-item">
-						<a class="nav-link" href="#">
+				<li class="nav-item {{ \Route::is('admin.nilai.*') ? 'active' : '' }}">
+						<a class="nav-link" href="{{ route('admin.nilai.index') }}">
 								<i class="icon-grid menu-icon"></i>
 								<span class="menu-title">Master Nilai</span>
 						</a>
 				</li>
-				<li class="nav-item">
+				{{-- <li class="nav-item">
 						<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
 								<i class="icon-layout menu-icon"></i>
 								<span class="menu-title">UI Elements</span>
@@ -46,6 +46,6 @@
 										</li>
 								</ul>
 						</div>
-				</li>
+				</li> --}}
 		</ul>
 </nav>

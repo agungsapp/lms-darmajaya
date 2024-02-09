@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminDataDosenController;
+use App\Http\Controllers\Admin\AdminDataNilaiController;
 use App\Http\Controllers\Admin\AdminMasterKelasController;
+use App\Http\Controllers\Common\CetakController;
 use App\Http\Controllers\Dosen\DosenBankSoalController;
 use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Dosen\DosenDataKelasController;
@@ -61,6 +63,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:1'])->group(fu
     Route::resource('/dashboard', AdminDashboardController::class);
     Route::resource('/kelas', AdminMasterKelasController::class);
     Route::resource('/dosen', AdminDataDosenController::class);
+    Route::resource('/nilai', AdminDataNilaiController::class);
+    Route::get('/cetak-nilai/{id}', [CetakController::class, 'cetakNilaiModul'])->name('cetak');
+    Route::get('/nilai-mahasiswa/{id}', [AdminDataNilaiController::class, 'showNilai'])->name('nilai.show.nilai');
 });
 
 // profix dosen
@@ -70,6 +75,15 @@ Route::prefix('dosen')->name('dosen.')->middleware(['auth', 'role:2'])->group(fu
     Route::resource('/modul', DosenDataModulController::class);
     Route::resource('/evaluasi', DosenEvaluasiController::class);
     Route::resource('/nilai', DosenDataNilaiController::class);
+
+
+
+    Route::get('/nilai/cetak', function () {
+        return "FUCK";
+    })->name('nilai.cetak');
+
+    Route::get('/cetak-nilai/{id}', [CetakController::class, 'cetakNilaiModul'])->name('cetak');
+
     Route::get('/nilai-mahasiswa/{id}', [DosenDataNilaiController::class, 'showNilai'])->name('nilai.show.nilai');
     // ajax area evaluasi start
     Route::get('/evaluasi/publish/{id}', [DosenEvaluasiController::class, 'publish'])->name('evaluasi.publish');
@@ -105,6 +119,17 @@ Route::get('/cekcek', [StudentEvaluasiController::class, 'sambutan']);
 //     return view('student.evaluasi.sambutan');
 // });
 
+
+
+
+// utility
+
+
+
+
+
+
+
 require __DIR__ . '/auth.php';
 
 
@@ -129,3 +154,11 @@ require __DIR__ . '/auth.php';
 
 
 // next admin 
+
+
+// besok update controller cetak belum beres 
+
+
+
+
+// baru sampai tahap print nilai dihalaman dosen 
