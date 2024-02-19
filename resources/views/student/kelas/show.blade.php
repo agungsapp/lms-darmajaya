@@ -9,17 +9,15 @@
 										srcset=""> --}}
 						</div>
 						<div class="col-12">
-								<div class="mt-5 p-2">
+								<div class="card mt-5 border-2 p-4">
 										<div class="d-flex justify-content-between">
 												<h4>{{ $mk->name }}</h4>
 												<i class="far fa-bookmark text-primary"></i>
 												{{-- <i class="fa-solid fa-bookmark text-primary"></i> --}}
 										</div>
-										<p>Author : {{ $mk->dosen->first_name . ' ' . $mk->dosen->last_name }}</p>
+										<p>Dosen Pengampu : {{ $mk->dosen->first_name . ' ' . $mk->dosen->last_name }}</p>
 
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque deserunt aut iusto inventore, cupiditate
-												repellendus libero ad veritatis esse quas. Obcaecati praesentium doloremque, ducimus nisi tenetur alias ipsa
-												libero reprehenderit?</p>
+
 								</div>
 						</div>
 				</div>

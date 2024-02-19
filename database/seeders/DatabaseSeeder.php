@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         // $this->call(HariSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(MataKuliahSeeder::class);
-        $this->call(EvaluasiSeeder::class);
-        $this->call(BankSoalSeeder::class);
+        // $this->call(MataKuliahSeeder::class);
+        // $this->call(EvaluasiSeeder::class);
+        // $this->call(BankSoalSeeder::class);
         // $this->call(GroupSeeder::class);
         // $this->call(AuthGroupUserSeeder::class);
         // $this->call(JamSeeder::class);
